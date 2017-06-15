@@ -1,4 +1,4 @@
-# Programación, qué es y para qué nos sirve?
+# Programación, ¿Qué es y para qué nos sirve?
 
 
 ## ¿Qué es la programación?
@@ -7,17 +7,17 @@
 
 Según la [RAE](http://www.rae.es/) podemos encontrar las siguientes definiciones:
 
-Programación: 
+**Programación:**
 ```
 Acción y efecto de programar.
 ```
 
-Programar: 
+**Programar:**
 ```
 Elaborar programas para su empleo en computadoras
 ```
 
-Algoritmo:
+**Algoritmo:**
 ```
 Conjunto ordenado y finito de operaciones que permite hallar la solución de un problema.
 ```
@@ -35,3 +35,9 @@ Existen distintos lenguajes de programación y cada uno de ellos se pueden adapt
 Los lenguajes elegidos para este proyecto son HTML, CSS y JavaScript. También vamos a utilizar Node.js como servidor y MongoDB como base de datos.
 
 Al aprender a programar tenemos la oportunidad de crear proyectos que nos gusten y que solucionen algún problema determinado desde una red social para amigos, un juego, un sitio para vender cosas hasta una aplicación para el celular o tablet. Las opciones son infinitas!!
+
+## Requisitos
+* [Node.js](https://nodejs.org/es/download)
+* [Visual Studio Code](https://code.visualstudio.com)
+* [Browser (vamos a usar Chrome)](https://www.google.com/chrome/browser/desktop/index.html)
+* [MongoDB 3.4 Community Server (lo instalamos al final del curso)](https://www.mongodb.com/download-center#community)

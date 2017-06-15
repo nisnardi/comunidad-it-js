@@ -5,8 +5,9 @@
 ## Introducción a la Programación
 * [Programación, qué es y para qué nos sirve?](contenido/programacion.md)
 
-## Web
-* ¿Cómo funciona? 
+## Internet
+* [¿Qué es?](contenido/internet.md)
+* [¿Cómo funciona?](contenido/internet.md)
 
 ## HTML5 
 * ¿Qué es HTML?
