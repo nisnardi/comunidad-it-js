@@ -6,7 +6,7 @@
 * [Programación, qué es y para qué nos sirve?](contenido/programacion.md)
 
 ## Internet
-* [¿Qué es?](contenido/internet.md)
+* [¿Qué es?](contenido/internet.md#qué-es)
 * [¿Cómo funciona?](contenido/internet.md)
 
 ## HTML5 
