@@ -358,7 +358,7 @@ TCP/IP & Routers
 Cables / Radio / Wifi
 ```
 
-### Página dinámicas
+## Página dinámicas
 
 En el ejemplo anterior vimos como se maneja la comunicación entre un cliente y servidor utilizando recursos (assets) estáticos. Esto quiere decir que los documentos que estan en el servidor no se modifican a no ser que alguien lo haga a mano y los vuelva a copiar. Para poder copiar archivos entre máqunas podemos utilizar un protocolo de transeferncia llamado [File Transfer Protocol (FTP)](https://es.wikipedia.org/wiki/File_Transfer_Protocol).
 

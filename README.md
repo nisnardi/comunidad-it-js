@@ -7,10 +7,14 @@
 
 ## Internet
 * [¿Qué es?](contenido/internet.md#qué-es)
-* [¿Cómo funciona?](contenido/internet.md)
+* [Historia](contenido/internet.md#historia)
+* [Programación WEB](contenido/internet.md#programación-web)
+* [Página dinámicas](contenido/internet.md#página-dinámicas)
+* [Videos](contenido/internet.md#videos)
 
 ## HTML5 
 * ¿Qué es HTML?
+
 
 ### Estructura
 * Estructura de un documento HTML 
