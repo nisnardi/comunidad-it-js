@@ -264,6 +264,7 @@ Dentro de la etiqueta HTML vamos a tener una sección donde podemos describir co
 
 #### Práctica
 [Ejercicio 2](../ejercicios/consignas/html/ej02.md)
+
 [Ejercicio 3](../ejercicios/consignas/html/ej03.md)
 
 ### Contenedores genéricos
@@ -467,7 +468,7 @@ en cualquier lado de nuestro documento.
 * Podemos utlizar el concepto que utilizamos desde la consola para entrar y salir de una carpeta
 * Para acceder a la raíz del sitio podemos utilizar **/**
 
-**Ejemeplo:**
+**Ejemplo:**
 ```html
 <a href="/">Volver a Home</a>
 ```
@@ -521,7 +522,7 @@ En about/about.html:
 * Al utilizar un punto de anclaje el browser se sitúa en la posición donde encuentre dicho punto.
 * Para esto utilizamos un elemento hipervínculo **a** con el atributo **name** que queremos utilizar como anclaje.
 
-**Ejemeplo**
+**Ejemplo**
 ```html
 Definimos el anclaje en un documento
 <a name="noticias"></a>
