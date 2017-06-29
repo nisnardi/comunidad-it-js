@@ -555,7 +555,8 @@ Desde otro archivo:
 * Vamos a crear un sitio similar a [Medium](https://medium.com/) con todo lo que vimos hasta este momento.
 
 #### Práctica
-[Sitio 1](../ejercicios/consignas/html/sitio01.md)
+[Sitio 1](../ejercicios/consignas/html/sitio01/sitio01.md)
+
 
 ## Imagenes
 * En HTML podemos utilizar la etiqueta **img** como contenedor de una imagen
