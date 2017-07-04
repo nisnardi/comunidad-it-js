@@ -3,7 +3,7 @@
 Crear una carpeta:
 * Nombre: sitio01
 
-Crear las siguientes carpetas dentro de la carpeta ej14:
+Crear las siguientes carpetas dentro de la carpeta sitio_1:
   * profile
     * Nombre de archivo: index.html
   * network
