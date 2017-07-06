@@ -1534,7 +1534,7 @@ Facebook:
 ```
 
 #### Práctica
-[Ejercicio 42](../ejercicios/consignas/html/ej41.md)
+[Ejercicio 41](../ejercicios/consignas/html/ej41.md)
 
 * También podemos agregar audio a nuestros documentos
 * Para incorporar audio utilizamos la etiqueta **audio**
@@ -1647,6 +1647,9 @@ Facebook:
 
 #### Práctica
 [Ejercicio 43](../ejercicios/consignas/html/ej43.md)
+
+## Extra:
+[Specs de HTML5 - super técnico](https://dev.w3.org/html5/spec-preview/Overview.html)
 
 ## Felicitaciones ya sabes HTML5, ahora a defender el mundo de los malos Browsers!
 ![Super Heroe HTML5](../assets/html/html_superhero.jpg)

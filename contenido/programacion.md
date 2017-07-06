@@ -41,3 +41,7 @@ Al aprender a programar tenemos la oportunidad de crear proyectos que nos gusten
 * [Visual Studio Code](https://code.visualstudio.com)
 * [Browser (vamos a usar Chrome)](https://www.google.com/chrome/browser/desktop/index.html)
 * [MongoDB 3.4 Community Server (lo instalamos al final del curso)](https://www.mongodb.com/download-center#community)
+
+## Ayuda
+* [Visual Studio Code shortcuts (windows)](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-windows.pdf)
+* [Visual Studio Code keybindings](https://code.visualstudio.com/docs/getstarted/keybindings)
