@@ -664,6 +664,9 @@ h1 {
   * El texto del documento tiene que ser negro y con tipografía Arial o sans-serif
   * Los títulos h1 son grises y con tipografía Times New Roman o serif
 
+#### Práctica
+[Ejercicio 9](../ejercicios/consignas/css/ej9.md)
+
 ### Tamaño
 * Por medio de la propiedad **font-size** podemos establecer el tamaño de la tipografía
 * Acepta como valor:
@@ -702,6 +705,9 @@ h1 {
   a { font-size: 1em; }
   ```
 
+#### Práctica
+[Ejercicio 10](../ejercicios/consignas/css/ej10.md)
+
   ### Bold
   * Por medio de la propiedad **font-weight** podemos establecer si el peso de nuestra tipografía
   * Podemos establecer si es **normal** o **bold**
@@ -721,6 +727,9 @@ h1 {
   <p>Texto en <span class="negrita">NEGRITA</span></p>
   <h1>Texto con negrita en 900 de peso</h1>
   ```
+
+#### Práctica
+[Ejercicio 11](../ejercicios/consignas/css/ej11.md)
 
 ### Itálica
 * Por medio de la propiedad font-style podemos establecer si queremos que nuestra tipografía sea normal, itálica o oblicua
@@ -762,6 +771,9 @@ p { text-transform: lowercase; }
 <p>TEXTO TODO EN MINUSCULA</p>
 ```
 
+#### Práctica
+[Ejercicio 12](../ejercicios/consignas/css/ej12.md)
+
 ### Alineado de textos
 * Por medio de la propiedad text-align podemos establecer como queremos alinear los textos de forma horizontal
 * Acepta los siguientes valores:
@@ -770,6 +782,9 @@ p { text-transform: lowercase; }
   * **center:** alinea todo al centro
   * **justify:** hace que el texto ocupe toda la caja (justificado)
 * Podemos aprender más sobre esta propiedad en el [sitio de MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/text-align)
+
+#### Práctica
+[Ejercicio 13](../ejercicios/consignas/css/ej13.md)
 
 ### Decorado
 * Por medio de la propiedad text-decoration establecemos si queremos decorar nuestras tipografía según los valores posibles:
@@ -797,6 +812,9 @@ h1 {
 }
 ```
 
+#### Práctica
+[Ejercicio 14](../ejercicios/consignas/css/ej14.md)
+
 ### Identación
 * Podemos identar nuestro texto utilizando la propiedad **text-indent**
 * Esta propiedad nos permite establecer un valor que va a funcionar como márgen izquierdo de la primer palabra de la primer línea.
@@ -807,6 +825,9 @@ h1 {
 ```css
 p { text-indent: 20px; }
 ```
+
+#### Práctica
+[Ejercicio 15](../ejercicios/consignas/css/ej15.md)
 
 ### Sombra
 * Para establecer la sombra de nuestro texto utilizamos la propiedad **text-shadow**
@@ -824,6 +845,9 @@ p { text-shadow: 4px 2px 0px #000000; }
 ```
 
 * Para jugar con estas opciones podemos usar el [siguiente sitio](http://www.cssportal.com/css3-text-shadow-generator)
+
+#### Práctica
+[Ejercicio 16](../ejercicios/consignas/css/ej16.md)
 
 ### Espaciado o aire
 * Podemos establecer la distancia tanto entre letras como palabras
@@ -855,6 +879,9 @@ p {
   line-height: 18px;
 }
 ```
+
+#### Práctica
+[Ejercicio 17](../ejercicios/consignas/css/ej17.md)
 
 ### Alineado Vertical
 * Podemos alinear los textos de forma verticual utilizando la propiedad **vertical-align**
