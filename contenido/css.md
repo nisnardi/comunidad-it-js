@@ -905,6 +905,10 @@ p {
 img { vertical-align: bottom; }
 ```
 
+#### Práctica
+[Ejercicio 18](../ejercicios/consignas/css/ej18.md)
+
+
 ## Modelo de Caja
 * Podemos pensar los elementos de HTML como una caja
 * Este concepto se conoce como box model
@@ -929,3 +933,179 @@ img { vertical-align: bottom; }
   * Espacio asignado a los márgines 
 * Sumando todos estos valores obtenemos el ancho real de los elementos
 * Algunos browsers viejos manejaban el modelo de la caja de otra forma y esto traía inconpatibilidad entre ellos
+
+### Color de fondo
+* La propiedad **background-color** nos permite establecer un color de fondo
+* Podemos utilizar esta propiedad para nuestros diseños y también resaltar la caja de un elemento
+* Acepta un color como valor (cualquiera de los que vimos)
+
+**Ejemplo:**
+```css
+div {
+  background-color: #eee;
+}
+```
+
+* En este ejemplo establecemos que todos los divs tengan un color de fondo gris claro
+* También existe el color **transparent** que es el valor por default
+
+**Ejemplo:**
+```css
+div {
+  background-color: transparent;
+}
+```
+
+#### Práctica
+[Ejercicio 19](../ejercicios/consignas/css/ej19.md)
+
+### Ancho y Alto
+* Por medio de las propiedades **width** y **height** podemos establecer el ancho y alto de la caja
+* Acepta medidas en px, % o ems
+
+**Ejemplo:**
+```css
+div {
+  width: 200px;
+  height: 200px;
+}
+```
+
+* En el ejemplo anterior establecemos el alto y el ancho de la caja en 200px es decir que estamos haciendo un cuadrado
+* También podemos establecer valores mínimos o máximos para un elemento
+* Utilizamos min-width y max-width para establecer el mínimo y máximo ancho de la caja
+* Podemos hacer lo mismo con el alto utilizando min-height y max-height para establecer el mínimo y máximo alto de la caja
+
+**Ejemplo:**
+```css
+div {
+  min-height: 100px;
+  min-width: 100px;
+}
+```
+
+* En el ejemplo anterior establecemos que mínmo alto y ancho de una caja
+* En caso de necesitar ser más grande la caja se va a agrandar pero nunca va a ser menor a 100px
+
+#### Práctica
+[Ejercicio 20](../ejercicios/consignas/css/ej20.md)
+
+### Contenido Extra
+* Existe una propiedad llamada **overflow** que nos permite manejar como se debe comportar el contenido extra de nuestro sitio
+* Muchas veces el browser no sabe como cortar un texto y simplemente se ve mal
+* Esta propiedad acepta los valores **hidden** y **scroll**
+* Con hidden ocultamos el contenido extra
+* Con scroll permitimos que el usuario pueda scrollear el contenido
+
+**Ejemplo:**
+```css
+div {
+  overflow: scroll;
+}
+```
+
+#### Práctica
+[Ejercicio 21](../ejercicios/consignas/css/ej21.md)
+
+### Bordes:
+* Por medio de la propiedad border podemos establecer el borde de la caja
+* Acepta como valores:
+  * Primero el ancho: utiliza medidas en pixeles o cualquiera de las otras medidas vistas
+  * Segundo parámetro: es el estilo de borde que queremos
+  * Tercer parámetro: es el color del borde
+
+**Ejemeplo:**
+```css
+div {
+  border: 1px solid red;
+}
+```
+
+* Cada uno de estos valores se pueden establecer de forma indiviudal:
+* Para el ancho utilizamos border-width
+* Para el diseño utilizamos border-style
+* PAra el color utilizamos border-color 
+
+**Ejemplo:**
+```css
+div {
+  border-width: 1px;
+  border-style: solid;
+  border-color: red;
+}
+```
+
+* Es lo mismo si utilizo la propiedad borde o la sumatoria de las otras propiedades (border-width, style y color)
+* Para los estilos de los bordes existen los siguientes valores:
+  * solid
+  * dotted
+  * dashed
+  * double
+  * groove
+  * ridge
+  * inset
+  * outset
+
+* También podemos establecer los bordes de manera individual (top right bottom left)
+* Por ejemplo para establecer los anchos del borde podemos utilizar las siguientes propiedades:
+  * border-top-width
+  * border-right-width
+  * border-bottom-width
+  * border-left-width
+* también podemos establecer valores indivduales utilizando una sola propiedad con muchos valores:
+* border-width: top right bottom left;
+
+**Ejemplo:**
+```css
+div {
+  border-width: 2px 1px 1px 2px;
+}
+```
+
+* En este caso estamos estableciendo:
+  * 2px para el borde superior (top)
+  * 1px para el borde derecho (right)
+  * 1px para el borde inferior (bottom)
+  * 2px para el borde de la izquierda (left)
+
+* Si queremos el mismo valor para el borde superior e inferior y derecha e izquierda podemos utilizar solo dos valores:
+* border-width: top/bottom right/left;
+* border-width: 2px 1px;
+* Es decir que establecemos 2px para el borde superior e inferior y 1px para el borde derecho e izquierdo
+
+* El border style funciona de la misma forma:
+  * border-top-style
+  * border-left-style
+  * border-right-style
+  * border-bottom-style
+* También podemos establecer 4 valores en el mismo orden que los anteriores utilizando la propiedad border-style
+
+* También podemos establecer un color de borde para cada uno de ellos:
+  * border-top-color
+  * border-right-color
+  * border-bottom-color
+  * border-left-color
+
+### Aire interno de la caja
+* Por medio de la propiedad padding podemos establecer un márgen interno de la caja
+* Este concepto le da como un aire interno a la caja
+* Acepta distintos tipos de medida
+
+```css
+div {
+  padding: 20px
+}
+```
+
+* También lo podemos establecer para cada uno de los lados de forma individual:
+  * padding-top
+  * padding-bottom
+  * padding-left
+  * padding-right
+
+* Otra opción para hacer esto es utilizar 4 o 2 valores al igual que lo hizimos con los bordes
+  * padding: top/bottom right/left;
+  * padding: 10px 20px;
+  * padding: top right bottom left;
+  * padding: 10px 15px 12px 25px;
+
