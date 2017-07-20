@@ -1086,6 +1086,16 @@ div {
   * border-bottom-color
   * border-left-color
 
+* También podemos establecer todos los valores del borde utilizando la propiedad **border**
+* Los valores que espera son: border-width border-style border-color
+
+**Ejemplo:**
+```css
+div {
+  border: 1px solid red;
+}
+```
+
 #### Práctica
 [Ejercicio 22](../ejercicios/consignas/css/ej22.md)
 
@@ -1515,7 +1525,6 @@ a:visited {
 li:first-child {
   color: red;
 }
-
 
 tr:nth-child(odd) {
   background-color: gray;
