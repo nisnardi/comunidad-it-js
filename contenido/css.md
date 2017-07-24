@@ -1460,7 +1460,7 @@ div {
 **Ejemplo:**
 ```css
 div {
-  background-color: linear-gradient( 60deg, blue, green );
+  background: linear-gradient( 60deg, blue, green );
 }
 ```
 
