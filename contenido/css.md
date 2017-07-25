@@ -1533,3 +1533,346 @@ tr:nth-child(odd) {
 
 #### Práctica
 [Ejercicio 37](../ejercicios/consignas/css/ej37.md)
+
+## Cursor
+* Por medio de la propiedad **cursor** cambiamos la forma en al que se ve el cursor en nuestros documentos/elementos
+* Esta propiedad acepta los siguientes valores:
+  * **auto:** El browser define como se tiene que ver según el elemento o acción que pueda hacer
+  * **crosshair:** Es una cruz como si fuera un selector
+  * **default:** Es el cursor por defecto, generalmente es una flecha
+  * **pointer:** Es la manito que vemos al hacer click en un elemento
+  * **move:** Con este cursor le damos a entender al usuario que puede hacer drag de un elemento ya que son flechas para distintos lados 
+  * **text:** Es el selector de texto como si queremos escribir en algún input
+  * **wait:** Es una forma de decirle al usuario que tiene que esperar que alguna acción se termine
+  * **help:** Es un signo de pregunta como podemos ver si queremos ayuda o más información sobre un tema
+* Utilizando estos cursores podemos darle a entender al usuario que acción se puede realizar, por ejemplo si ponemos la manito arriba de un elemento el usuario asume que puede hacer click (por ahora sólo es un efecto visual)
+* Para saber más de esta propiedad pueden leer el [sitio de MDN](https://developer.mozilla.org/es/docs/Web/CSS/cursor)
+
+**Ejemplo: **
+```css
+body { cursor: pointer; }
+button { cursor: help; }
+```
+
+#### Práctica
+[Ejercicio 38](../ejercicios/consignas/css/ej38.md)
+
+## Listas
+
+### Diseño de listas
+* Por medio de la propiedad **list-style-type** podemos establecer que diseño tiene la lista
+* Para listas desordenadas podemos utilizar:
+  * none
+  * disc
+  * circle
+  * square
+* Para listas ordenadas:
+  * decimal
+  * decimal-leading-zero
+  * lower-alpha
+  * upper-alpha
+  * lower-roman
+  * upper-roman
+
+**Ejemplo:**
+```css
+ul {
+  list-style-type: none;
+}
+
+ol {
+  list-style-type: decimal-leading-zero;
+}
+```
+
+* De esta forma cambiamos la forma en que se ven las listas
+
+### Posicionamiento
+* También podemos definir la posición donde queremos posicionar el diseño/dibujo de la tabla
+* Para esto tenemos la propiedad **list-style-position** que acepta 2 valores:
+  * **outside:** Es la posición normal que tienen las listas
+  * **inside:** Establece que el diseño tiene que ser parte del elemento li y se ve dentro de él
+
+**Ejemplo:**
+```css
+ul {
+  list-style-position: inside;
+}
+
+ol {
+  list-style-position: inside;
+}
+```
+
+### Imagenes
+* Podemos establecer como diseño una imagen por medio de la propiedad **list-style-image**
+* Acepta como valor una ruta de una imagen por medio de la funci´øn **url(imagen.png)**
+
+**Ejemplo:**
+```css
+ul {
+  list-style-image: url("garfield.png");
+}
+```
+
+### Todo junto
+* Podemos escribir todas estas propiedades utilizando la propiedad **list-style**
+* El orden de los valores es: list-style: list-style-type list-style-position list-style-image
+
+**Ejemplo:**
+```css
+ul {
+  list-style: square inside;
+}
+ol {
+  list-style: upper-roman outside;
+}
+```
+
+#### Práctica
+[Ejercicio 39](../ejercicios/consignas/css/ej39.md)
+
+## Tablas
+* Para las tablas podemos utilizar muchas de las propiedades que ya vimos como border, width, padding, height, background-color, margin, etc
+* Nos quedan por conocer algunas propiedades que nos permiten modificar los bordes y como se comportan en las tablas
+* Estas propiedades son: **border-spacing** y **border-collapse**
+
+### Espaciado de borde
+* Por medio de la propiedad **border-spacing** podemos establecer la distancia que tienen que tener los bordes entre si, esto va a dar más espacio exterior entre las celdas
+* Acepta un valor para todos los lados
+* Acepta dos valores siendo el primero el valor horizontal y el segundo el vertical
+* Para saber más sobre esta propiedad pueden entrar en el [sitio de MDN](https://developer.mozilla.org/es/docs/Web/CSS/border-spacing)
+
+**Ejemplo:**
+```css
+table {
+  border-spacing: 10px 20px;
+}
+```
+
+#### Práctica
+[Ejercicio 40](../ejercicios/consignas/css/ej40.md)
+
+### Agrupar Bordes
+* Por medio de la propiedad **border-collapse** podemos establecer los siguientes comportamientos de la tabla y sus bordes: 
+* **collapse:** Los bordes son colapsados en un solo borde, es decir que no se pueden distanciar usando la propiedad **border-spacing**
+* **separate:** Los bordes están sueltos por lo cual los podemos distanciar unos con otros
+
+#### Práctica
+[Ejercicio 41](../ejercicios/consignas/css/ej41.md)
+
+## Forms
+* Los formularios y los inpusts tienen las mismas propiedades que vimos hasta el momento
+
+#### Práctica
+[Ejercicio 42](../ejercicios/consignas/css/ej42.md)
+
+#### Práctica Especial Sitio 01
+[Ejercicio 43](../ejercicios/consignas/css/ej43.md)
+
+## Layouts
+* Como vimos los elementos pueden ser en bloque (No dejan que otro elemento este en la misma linea) y en linea (Se rodea de texto)
+* Es común agrupar elementos en secciones usando un elemento div o si queremos también podemos utilizar los nuevos elementos de HTML5 para cada sección de nuestro documento
+* En CSS podemos tener distintos tipos de layout para mostrar nuestros elementos
+
+
+### Posicionamiento Normal
+* Cada elemento en bloque aparece en una línea nueva haciendo que el resto del contenido baje como se espera. Este es el comportamiento por default
+* Para establecer el posicionamiento de los elementos utilizamos la propiedad **position**
+* Si queremos que un elemento se comporte de manera normal no tenemos que agregar ninguna propiedad ya que como dijimos es la forma default
+* En caso de tener que establecer que un elemento tiene que volver a tener posición normal utilizamos el valor **static**
+
+**Ejemplo:**
+```css
+div {
+  position: static;
+}
+```
+
+### Posicionamiento Relativo
+* Esta opción hace que un elemento ocupe el lugar que ocuparía en el flow regular (normal) pero nos da la opción de mover su posición con valores de top, left, right y bottoom. 
+* Para establecer que un elemento se posiciona de manera relativa tenemos que setear el valor de la propiedad **position** en **relative**
+* Podemos decir que del lugar donde esta el elemento lo podemos mover en distintas direcciones pero siempre relativo al lugar que ocupa. 
+* El resto de los elementos ocupa su lugar normal
+* Los valores top, left, right y bottom aceptan una unidad de medida que puede ser pixeles u otros valores de los vistos
+
+**Ejemplo:**
+```css
+p {
+  position: relative;
+  top: 10px;
+  left: 20px;
+}
+```
+
+#### Práctica
+[Ejercicio 44](../ejercicios/consignas/css/ej44.md)
+
+### Posicionamiento absoluto
+* Con este posicionamiento podemos establecer la posición absoluta que queremos que ocupe un elemento en realación a su contenedor. Este elemento es removido del flow normal por lo cual no afecta al resto de los elementos. Estos elementos posicionados de manera absoluta son scrolleados acompañando el scroll del usuario.
+
+**Ejemplo:**
+```css
+p {
+  position: absolute;
+  top: 10px;
+  left: 20px;
+}
+```
+
+#### Práctica
+[Ejercicio 45](../ejercicios/consignas/css/ej45.md)
+
+### Posicionamiento Fixed
+* Este posicionamiento es similar al absoluto pero en lugar de ser posicionado de forma absoluta al elemento padre lo hace en relación al browser, es decir que este elemento se posiciona usando las coordenadas del browser y no del elemento padre. El resto de los elementos siguen funcionando de la misma forma, es decir que hacen como si este elemento fixed no existiera.
+
+**Ejemplo:**
+```css
+p {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+```
+
+#### Práctica
+[Ejercicio 46](../ejercicios/consignas/css/ej46.md)
+
+### z-index
+* Al cambiar la forma en que se comportan o posicionan los elementos podemos controlar el nivel de profundidad que utiliza cada uno utilizando la propiedad **z-index**, es decir que si dos elementos estan posicionados en el mismo lugar podemos hacer que uno se vea arriba del otro aumentando el nivel de z-index. Por ejemplo si tengo 2 elementos en la misma posición fixed puedo cambiar el nivel de uno a z-index:1 y el otro a z-index:2 y de esta forma hacer que el que tiene mayor nivel de z-index se vea arriba de todo.
+
+**Ejemplo:**
+```css
+p {
+  z-index: 100
+}
+```
+
+#### Práctica
+[Ejercicio 47](../ejercicios/consignas/css/ej47.md)
+
+### Elementos Flotantes
+* Podemos establecer que un elemento flote hacia la izquierda o derecha de un elemento, el resto de los elementos se posicionan al costado de dicho elemento. 
+* Utilizamos la propiedad **float** y los valores **left** (izquierda) o **right** (derecha)
+* Al utilizar elementos flotando conviene establecer un **width**
+
+**Ejemplo:**
+```css 
+div {
+  float: left;
+  width: 200px;
+}
+```
+
+* Al tener elementos flotando el resto de los elementos se van a posicionar al costado del elemento flotante
+* Si queremos que los elementos vuelvan a tener el flow normal podemos utilizar la propiedad **clear** que acepta los valores **left**, **rigth** o **both**
+* Por medio de esta propiedad establecemos que no queremos tener elementos flotantes a la izquierda, derecha o ninguno de los dos
+
+**Ejemplo:**
+```css 
+div {
+  clear: left;
+}
+```
+
+* En este ejemplo el div no va a tener a nadie flotando a su izquierda y se recupera el flow normal de los elementos
+
+#### Práctica
+[Ejercicio 48](../ejercicios/consignas/css/ej48.md)
+
+
+* Podríamos tener 3 secciones que esten flotando para hacer una parte del sitio en 3 columnas
+
+**Ejemplo:**
+```css 
+div {
+  width: 300px;
+  float: left;
+}
+```
+
+* Podemos aprender más en el sitio de [http://es.learnlayout.com](http://es.learnlayout.com)
+* Otra buena fuente es [Learn CSS Positioning in Ten Steps (inglés pero se entiende)](http://www.barelyfitz.com/screencast/html-training/css/positioning)
+* Actualmente se piensa el diseño web como si fuera imprenta (o los diarios) y existe el concepto de grilla
+  * Podemos ver el sitio de [960.gs](https://960.gs) que tiene buenos ejemplos
+    * Básicamente la página se divide en pequeñas secciones donde el ancho máximo es 960px
+    * Tenemos máximo 12 columnas
+    * Si queremos usar toda una sección utilizamos las 12 columnas
+    * Si queremos utilizar 2 columnas donde una es más grande y la otra más chica podemos elegir una columna de 4 espacios y otra de 8
+    * Si queremos hacer una página de 2 lados nada más y ocupar la mitad para cada sección podemos hacer dos columnas de 6 y 6
+    * En caso de querer hacer una página a 3 columnas podríamos dividirlo en 3 secciones de 4 columnas cada una
+    * Lo importante es que la sumatoria de columnas de 12 como máximo
+    * Como vemos se pueden utilizar muchas opciones y la grilla nos abstrae de la forma de crear todo esto
+  * Algunos sistemas de grillas son más flexibles
+  * Se pueden conseguir grillas de 16 columnas
+  * Boostrap también trae su propio [sistema de grilla](http://getbootstrap.com/css/#grid)
+  * Foundation también: [grillas](http://foundation.zurb.com/sites/docs/xy-grid.html)
+
+#### Ejemplos de grillas:
+
+##### Ejemplo de distintas opciones
+![Distintas opciones](../assets/css/distintas_secciones.jpg)
+
+##### Ejemplo de sitio
+![Ejemplo de sitio](../assets/css/sitio.jpg)
+
+## Media Queries
+* Por medio de Media Query podemos establecer atributos visuales dependiendo del tipo de dispositivo que esta viendo el documento
+* Varios de las librerías o framworks de vista que mencionamos (boostrap o foundation) ya vienen preparado para soportar este tipo de detección y adaptarse de la mejor forma
+* Utilizamos **@media** para establecer que vamos a detectar un tipo de dispositivo
+* También podemos agregar condicionales para detectar distintos tipos de dispositivos
+* Pueden leer más en el [sitio de MDN](https://developer.mozilla.org/es/docs/CSS/Media_queries)
+
+**Ejemplo:**
+```css
+@media (max-width: 600px) {
+  p {
+    color: red;
+  }
+}
+```
+
+* Se pueden agregar más condicionales utilizando la palabra reservada **and**
+
+**Ejemplo:**
+```css
+@media (min-width: 200px) and (max-width: 600px) {
+  .rojo {
+    color: red;
+  }
+}
+```
+
+* Otra de las opciones es detectar la posición del dispositivo para saber si esta en formato vertical u horizontal
+* Utilizamos la propiedad orientation y los valores **landscape** o **portrait**
+* Pueden leer más sobre esto en el [sitio de MDN(inglés)](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model/Managing_screen_orientation)
+
+**Ejemplo:**
+```css
+@media (max-width: 600px) and (orientation: portrait) {
+  .rojo {
+    color: red;
+  }
+}
+```
+
+* Para trabajar con celulares u otros dispositivos es posible que tengamos que agregar el siguiente encabezado
+* Pueden leer más sobre este tema en el [siguiente sitio (en inglés)](https://css-tricks.com/snippets/html/responsive-meta-tag)
+
+**Ejemplo:**
+```html
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+```
+
+* Con las [developers tools](https://developers.google.com/web/tools/chrome-devtools/device-mode) podemos probar diferentes dispositivos
+
+#### Práctica
+[Ejercicio 49](../ejercicios/consignas/css/ej49.md)
+
+### Flexbox
+* Próxima sección de Flexbox
+
+#### Práctica Especial Sitio 02
+[Sitio 02](../ejercicios/consignas/css/sitio02.md)
