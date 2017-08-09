@@ -1,4 +1,4 @@
-![Sin titulo](img/git.png)
+![Git acaba con versiones finales](../assets/git/git.png)
 
 Git es un **sistema de control de versiones** distribuido, gratuito y de código abierto. Es decir, es un tipo de software pensando para hacer un seguimiento claro y ordenado de todos los cambios que vas haciendo en los archivos de un proyecto. Mejor todavía, te permite hacerlo en equipo, de forma colaborativa.
 
