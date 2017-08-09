@@ -40,6 +40,10 @@ Realiza una copia en nuestro directorio local de un repositorio existente.
 	git branch -all
 En Git se trabaja con branches (ramas en español), originalmente se crea la master por defecto, a raíz de esto nosotros podemos crear nuestras propias ramas, siendo claro una copia de la master en primera instancia. Con este comando podemos ver todas las ramas que tenga el proyecto.
 
+### Extras:
+
+Presentación hecha en Google -> [Git-Cheat Sheet](../assets/git/ppt/git-cheatSheet.pdf)
+
 ### Referencias:
 
 La biblia -> [Progit](https://git-scm.com/book/es/v1)    
