@@ -743,4 +743,4 @@ console.log(resultado); // 0
 [Ejercicio 29](../ejercicios/consignas/js/ej29.md)
 [Ejercicio 30](../ejercicios/consignas/js/ej30.md)
 [Ejercicio 31](../ejercicios/consignas/js/ej31.md)
-[Ejercicio 32](../ejercicios/consignas/js/ej31.md)
+[Ejercicio 32](../ejercicios/consignas/js/ej32.md)
