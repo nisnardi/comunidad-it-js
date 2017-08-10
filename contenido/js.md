@@ -744,3 +744,457 @@ console.log(resultado); // 0
 [Ejercicio 30](../ejercicios/consignas/js/ej30.md)
 [Ejercicio 31](../ejercicios/consignas/js/ej31.md)
 [Ejercicio 32](../ejercicios/consignas/js/ej32.md)
+
+
+### Incremento y decremento
+* Por medio de distintos operadores podemos hacer operaciones de una forma más simple a nivel código
+
+#### Incrementar en 1
+* Utilizando el operador `++` podemos incrementar un valor en 1
+
+**Ejemeplo:**
+```js
+let numero = 0;
+numero++;
+console.log(numero); // 1
+```
+
+* También podemos establecer que primero queremos incrementar la variable para luego utilizarla cambiando el lugar del operador
+
+**Ejemplo:**
+```js
+let numero = 0;
+++numero;
+console.log(numero); // 1
+```
+
+* En este caso parece ser lo mismo pero se pueden dar situaciones donde no lo sea
+
+#### Restar un número
+* Utilizando el operador `--` podemos reducir un valor en 1
+* Al igual que en el incremento el operador puede ir delante o después del valor según el resultado esperado
+
+**Ejemplo:**
+```js
+let numero = 10;
+
+--numero;
+console.log(numero); // 9
+
+numero--;
+console.log(numero); // 8
+```
+
+#### Hacer una operación sobre un mismo valor
+* Al definir una variable podemos asignarle un valor como ya vimos
+* Podemos reutilizar esa variable para asignarle otro valor
+* También podemos utilizar la variable para usar el valor y luego asignarlo de nuevo a la misma variable
+* Vamos a ver un ejemplo:
+
+**Ejemplo:**
+```js
+let numero = 1;
+numero = numero + 1
+```
+
+* Como vimos podemos usar el operador `++` para conseguir el mismo resultado
+**Ejemplo:**
+```js
+let numero = 1;
+numero++;
+```
+
+* Es decir que en este caso se incrementa y asigna el valor de la variable numero
+* Este operador es súper útil pero sólo nos permite operar con la suma y con un valor de 1
+* Existen distintos operadores que nos permiten hacer operaciones sobre un valor y asignar el resultado a la misma variable escribiendo menos código
+* Los operadores son:
+  * `+=` para la suma
+  * `-=` para la resta
+  * `*=` para la multiplicación
+  * `/=` para la división
+* Este concepto se entiende mejor desde código
+
+**Ejemplo:**
+```js
+let numero = 1;
+
+numero +=
+console.log(numero); // 2
+```
+
+**Ejemplo:**
+```js
+let numero = 1;
+
+numero = numero + 10;
+console.log(numero); // 11
+```
+
+* También puedo hacer esta operación de la siguiente forma
+
+**Ejemplo:**
+```js
+let numero = 1;
+
+numero += 10;
+console.log(numero); // 11
+```
+
+* Vemos que podemos sumar el valor 10 al valor que tiene la variable numero y asignar el resultado a la misma variable utilizando sólo el operador `+=`
+* Podemos hacer esto con el resto de los operadores
+
+**Ejemplo:**
+```js
+let numero = 10;
+
+numero -= 2;
+console.log(numero); // 8
+```
+
+**Ejemplo:**
+```js
+let numero = 10;
+
+numero *= 2;
+console.log(numero); // 20
+```
+
+**Ejemplo:**
+```js
+let numero = 20;
+
+numero /= 2;
+console.log(numero); // 10
+```
+
+* El concepto es siempre el mismo y lo que cambia es la operación realizada
+
+#### Práctica
+[Ejercicio 33](../ejercicios/consignas/js/ej33.md)
+
+## Operadores de comparación simple y estricta
+
+### Comparación Simple
+* Podemos comparar dos valores utilizando el operador `==` y obtener un valor **boolean** como resultado.
+* Este tipo de comparación se conoce como comparación simple ya que sólo compara si un valor es igual a otro
+* Al comparar 2 valores de distintos tipos podemos obtener que son el mismo valor sin importar que sean diferente tipo (ejemplo: comparar un string con un número)
+* Si los valores son iguales obtenemos **true**
+* En caso de que los valores sean distintos obtenemos el valor **false**
+
+**Ejemplo:**
+```js
+let numero1 = 20;
+let numero2 = 20;
+let numero3 = 10;
+
+console.log(numero1 == numero2); //true
+console.log(numero1 == numero3); //false
+```
+
+* Comparamos sólo valores:
+
+**Ejemplo:**
+```js
+console.log(10 == '10'); //true
+```
+
+* Ya que podemos comparar dos valores y saber si son iguales también podemos saber si son distintos utilizando el operador `!=`
+
+**Ejemplo:**
+```js
+let numero1 = 20;
+let numero2 = 20;
+let numero3 = 10;
+
+console.log(numero1 != numero2); // false
+console.log(numero1 != numero3); // true
+```
+
+* Otra forma de comparar valores es saber si un valor es más grande que otro
+* Utilizamos el operador `>` para saber si el valor de la izquierda del operador es más grande que el valor de la derecha
+
+**Ejemplo:**
+```js
+let numero1 = 20;
+let numero2 = 10;
+
+console.log(numero1 > numero2); // true
+```
+
+* También podemos saber si un valor es más chico que otro utilizando el operador <
+
+**Ejemplo:**
+```js
+let numero1 = 20;
+let numero2 = 10;
+
+console.log(numero2 < numero1); // true
+```
+
+* En algunos casos necesitamos saber si un valor es más grande o igual que otro
+* Es decir que esta condición se va a transformar en verdadera en caso de que el valor de la izquierda sea más grande o el mismo valor que el de la derecha
+
+**Ejemplo:**
+```js
+let numero1 = 20;
+let numero2 = 10;
+let numero3 = 20;
+
+console.log(numero1 >= numero2); // true
+console.log(numero1 >= numero3); // true
+```
+
+* Podemos hacer lo mismo para saber si es menor
+
+**Ejemplo:**
+```js
+let numero1 = 20;
+let numero2 = 10;
+let numero3 = 10;
+
+console.log(numero2 <= numero1); // true
+console.log(numero2 <= numero3); // true
+```
+
+### Comparación Estrícta
+* La comparación estricta no solo compara el valor sino también el tipo de dato
+* Utilizamos el operador `===` para comparar si son el mismo tipo de dato y valor
+* Utilizamos el operador `!==` para comparar si son el distintos tipo de dato y valor
+
+**Ejemplo:**
+```js
+console.log(10 === '10'); // false
+console.log(10 !== '10'); // true
+console.log(10 !== '10'); // true
+```
+
+* Los dos últimos casos da **true** ya que no importa el valor que tengan ambos valores son distintos tipo de dato
+
+#### Práctica
+[Ejercicio 34](../ejercicios/consignas/js/ej34.md)
+[Ejercicio 35](../ejercicios/consignas/js/ej35.md)
+
+## Operadores lógicos
+* Existen operadores lógicos que nos permiten anidar condicionales
+* Puedo saber si dos conciones son **true** utilizando el operador `&&` conocido como **and** o en español como **Y**
+* Por ejemplo si queremos saber si el la edad del usuario es mayor de 18 años y si el password es el esperado lo podemos hacer de la siguiente manera
+* Para que este operador retorne **true** ambas condiciones deben ser verdaderas
+
+**Ejemplo**
+```js
+let edad = 20;
+let password = 'js1234';
+let resultado = edad >= 18 && password ==='js1234';
+console.log('resultado: ', resultado); // true
+```
+
+* En este ejemplo obtenemos un valor de true ya que ambas condiciones (edad >= 18 y password === 'js1234') son verdaderas
+* Existe el operador `||` conocido como **or** u **O** en español que nos permite preguntar si al menos una de 2 condiciones es verdadera.
+* Si la primer condición es verdadera ya no evalúa la segunda ya que al menos una de las dos condiciones es verdadera
+* Caso de que la primer condición no sea verdadera va a comprobar si la segunda lo es
+* Si ninguna de las dos condiciones es verdadera retorna falso
+* Este operador retorna **true** si al menos una de las condiciones es verdadera
+
+**Ejemplo**
+```js
+let edad = 20;
+let password = 'js12345';
+let resultado = edad >= 18 || password ==='js1234';
+console.log('resultado: ', resultado); // true
+```
+
+* En este caso la condición es verdadera ya que la edad del usuario es mayor a 18 y no importa si el password es igual o no
+
+**Ejemplo**
+```js
+let edad = 10;
+let password = 'js1234';
+let resultado = edad >= 18 || password ==='js1234';
+console.log('resultado: ', resultado); // true
+```
+
+* En este caso el resultado es **true** ya que el usuario no es mayor de 18 pero el password es correcto
+
+**Ejemplo**
+```js
+let edad = 10;
+let password = 'js12345';
+let resultado = edad >= 18 || password ==='js1234';
+console.log('resultado: ', resultado); // false
+```
+
+* En este caso la condición es **false** ya que ambas condiciones son falsas
+
+## Negación
+* Por medio del operador `!` podemos negar una condición
+* Si tenemos un valor **true** negado obtenemos un valor **false**
+* Si tenemos un valor **false** negado obtenemos un valor **true**
+
+**Ejemplo**
+```js
+console.log(!true); // false
+console.log(!false); // true
+```
+
+* Por ejemplo podemos utilizar la negación en el siguiente caso:
+
+**Ejemplo**
+```js
+let edad = 21;
+let resultado = edad < 18; 
+console.log('El usuario es mayor de edad?: ', !resultado); // la condición es false pero al negarla pasa a ser verdadera
+```
+
+#### Práctica
+[Ejercicio 36](../ejercicios/consignas/js/ej36.md)
+[Ejercicio 37](../ejercicios/consignas/js/ej37.md)
+
+## Caracteres especiales en strings
+* Existen caracteres especiales en los **strings** que agregan un valor extra
+* \n  Nueva Línea
+* \t  Tabulador
+* \r  Retorno de Línea
+
+**Ejemplo:**
+```js
+let mensaje = 'este texto \n es multilinea';
+console.log(mensaje); // texto en 2 líneas
+
+mensaje = '\t \t texto tabulado';
+console.log(mensaje); // texto tabulado
+```
+
+* Por medio de los siguientes caracteres podemos escapar algunos caracteres:
+* \'  Apóstrofe o comilla sencilla
+* \"  Comilla doble
+* \\  Carácter Backslash
+
+**Ejemplo:**
+```js
+let mensaje = 'este texto \\no es multilinea';
+console.log(mensaje); // muestra el caracter \ como parte del texto
+
+// si no escapamos el caracter \ el texto es multiliena en lugar de tener \ como parte del contenido
+mensaje = 'este texto \no es multilinea';
+console.log(mensaje);
+```
+
+* Vemos que por medio de estos caracteres especiales podemos jugar con nuestros strings y prevenir errores o comportamientos inesperados!!
+
+#### Práctica
+* Abrir la consola de node o browser y probar estos ejemplos
+
+## Propiedades y métodos de string
+### Propiedad length
+* Por medio de la propiedad length podemos saber cuántos caracteres tiene un **string**
+* La propiedad **length** retorna o devuelve un número con la cantidad de caracteres que tiene el texto
+* Lo utilizamos de la siguiente manera:
+
+**Ejemplo:**
+```js
+let texto = 'Bienvenidos a ECMAScript!!';
+let cantidadDeCaracteres = texto.length;
+
+console.log(cantidadDeCaracteres);
+```
+
+* En este ejemplo declaramos una variable `texto` con el valor `Bienvenidos a ECMAScript!!` y otra variable `cantidadDeCaracteres` donde guardamos la cantidad de caracteres que tiene la variable `texto`
+* También podemos obtener el mismo resultado sin utilizar la variable `cantidadDeCaracteres`
+
+**Ejemplo:**
+```js
+let texto = 'Bienvenidos a ECMAScript!!';
+console.log(texto.length);
+```
+
+#### Práctica
+[Ejercicio 38](../ejercicios/consignas/js/ej38.md)
+[Ejercicio 39](../ejercicios/consignas/js/ej39.md)
+
+### Métodos de String
+* Los métodos nos permiten obtener funcionalidad para los distintos tipos de datos
+* Este método retorna un nuevo string con el texto concatenado
+* Podemos ver una lista de métodos del tipo String en el [sitio de MDN](https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/String)
+* Vamos a ver algunos de los métodos más conocidos y jugar un poco con ellos
+
+**Ejemeplo:**
+```js
+let variableString = 'valor de nuestro string';
+
+// Al tener un valor del tipo string podemos llamar a un método utilizando un punto (como con la propiedad length) y paréntesis ()
+variableString.metodo();
+
+// También podemos pasar un valor a los métodos para lograr una funcionalidad específica
+variableString.metodo(valor);
+```
+
+## Concat
+* Hasta ahora vimos que podemos utilizar el símbolo + para concatenar 2 valores
+* Los strings tienen un método llamado **concat** que nos permite concatenar valores
+* Podes saber más sobre este método en el [sitio de MDN](https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/String/concat)
+
+**Ejemplo:**
+```js
+let texto = 'Hola ';
+let nombre = 'Marta';
+
+// Concatenamos los strings usando el método concat
+let mensaje = texto.concat(nombre);
+
+console.log(mensaje);
+```
+
+* En este ejemplo se imprime el texto **Hola Marta**
+* También se pueden pasar múltiples valores a ser concatenados
+
+**Ejemplo:**
+```js
+let texto = 'ECMA';
+console.log(texto.concat('Script', ' es lo mejor', ' del mundo de la programación'));
+```
+* en este ejemplo concatenemos varios strings al contenido de la variable texto
+* Se muestra en pantalla el mensaje: **ECMAScript es lo mejor del mundo de la programación**;
+
+#### Prácticas
+[Ejercicio 40](../ejercicios/consignas/js/ej40.md)
+
+### Mayúsculas y minúsculas
+* Podemos transformar un texto a mayúscula o minúscula utilizando los métodos **toUpperCase** y **toLowerCase** respectivamente
+
+**Ejemplo:**
+```js
+let textoEnMayuscula = 'HOLA';
+let textoEnMinuscula = 'amigos';
+
+console.log(textoEnMayuscula.toLowerCase()); // muestra el texto hola
+console.log(textoEnMinuscula.toUpperCase()); // muestra el texto AMIGOS
+
+console.log(textoEnMayuscula); // muestra el texto HOLA
+console.log(textoEnMinuscula); // muestra el texto amigos
+```
+#### Prácticas
+[Ejercicio 41](../ejercicios/consignas/js/ej41.md)
+[Ejercicio 42](../ejercicios/consignas/js/ej42.md)
+
+### Caracteres y posiciones
+* Por medio del método **charAt** podemos saber que caracter se encuentra en una determinada posición de un string
+* Este método acepta un valor numérico como parámetro
+* El primer caracter esta ubicado en la posición 0
+* Para saber cual es el último caracter podemos utilizar la propiedad **length**
+* Dado que el primer elemento arranca en 0 a la logitud del string debemos restarle uno
+
+**Ejemplo:**
+```js
+let textoSuperLargo = 'Este texto es bien largo así podemos saber varias cosas de él.';
+let primerCaracter = textoSuperLargo.charAt(0);
+let posicionDelUltimoCaracter = textoSuperLargo.length - 1;
+let ultimoCaracter = textoSuperLargo.charAt(posicionDelUltimoCaracter);
+
+// Accedemos al primer caracter E
+console.log(primerCaracter);
+console.log(ultimoCaracter);
+```
+
+#### Prácticas
+[Ejercicio 43](../ejercicios/consignas/js/ej43.md)
+[Ejercicio 44](../ejercicios/consignas/js/ej44.md)
