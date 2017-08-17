@@ -2629,6 +2629,9 @@ console.log(sumaDeNotas); // 25 resultado final de sumar todas las notas
 const miObjeto = {}; // objeto asignado a una variable
 ```
 
+#### Prácticas
+[Ejercicio 143](../ejercicios/consignas/js/ej143.md)
+
 ### Propiedades
 * Un objeto puede tener propiedades
 * Las propiedades se definen con un nombre como si fueran variables
@@ -2657,6 +2660,10 @@ const persona = {
 console.log(persona.nombre);
 console.log(persona.edad);
 ```
+#### Prácticas
+[Ejercicio 144](../ejercicios/consignas/js/ej144.md)
+[Ejercicio 145](../ejercicios/consignas/js/ej145.md)
+[Ejercicio 146](../ejercicios/consignas/js/ej146.md)
 
 * Si accedemos a una propiedad que no existe vamos a obtener undefined
 
