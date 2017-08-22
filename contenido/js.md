@@ -2664,6 +2664,7 @@ console.log(persona.edad);
 [Ejercicio 144](../ejercicios/consignas/js/ej144.md)
 [Ejercicio 145](../ejercicios/consignas/js/ej145.md)
 [Ejercicio 146](../ejercicios/consignas/js/ej146.md)
+[Ejercicio 147](../ejercicios/consignas/js/ej147.md)
 
 * Si accedemos a una propiedad que no existe vamos a obtener undefined
 
@@ -2720,6 +2721,10 @@ console.log(persona.dni); // 20202123
 * Podemos caer en el error de escribir mal una propiedad o por ahí utilizar mayúscula y no encontrar la propiedad buscada o eventualmente terminar creando nuevas propiedades
 * De nuevo, por las dudas... tener cuidado con las propiedades de los objetos de ECMAScript
 
+#### Prácticas
+[Ejercicio 148](../ejercicios/consignas/js/ej148.md)
+[Ejercicio 149](../ejercicios/consignas/js/ej149.md)
+
 ### Métodos
 * Los objetos pueden tener métodos
 * Un método es una propiedad que tiene una función
@@ -2761,6 +2766,10 @@ const persona = {
 persona.saludar(); // Hola, cómo estan?
 ```
 
+#### Prácticas
+[Ejercicio 150](../ejercicios/consignas/js/ej150.md)
+[Ejercicio 151](../ejercicios/consignas/js/ej151.md)
+
 * Cuando utilizamos métodos de string, number o arrays estabamos utilizando funciones propias de cada uno de estos tipos.
 * **ECMAScript transforma los strings, numbers y arrays a objetos para poder utilizar métodos sobre estos tipos de datos**
 
@@ -2794,6 +2803,15 @@ const persona = {
 
 persona.saludar(); // Hola, mi nombre es Nico
 ```
+
+#### Prácticas
+[Ejercicio 152](../ejercicios/consignas/js/ej152.md)
+[Ejercicio 153](../ejercicios/consignas/js/ej153.md)
+[Ejercicio 154](../ejercicios/consignas/js/ej154.md)
+[Ejercicio 155](../ejercicios/consignas/js/ej155.md)
+[Ejercicio 156](../ejercicios/consignas/js/ej156.md)
+[Ejercicio 157](../ejercicios/consignas/js/ej157.md)
+[Ejercicio 158](../ejercicios/consignas/js/ej158.md)
 
 * También dentro de un método podemos modificar una propiedad de un objeto
 
@@ -2858,6 +2876,10 @@ console.log(persona[nombre]);  // nico
 console.log(persona[edad]);  // 38
 ```
 
+#### Prácticas
+[Ejercicio 159](../ejercicios/consignas/js/ej159.md)
+[Ejercicio 160](../ejercicios/consignas/js/ej160.md)
+
 * De esta forma podemos acceder a propiedades de un objeto de forma dinámica
 * Esto es útil si lo usamos con `Object.keys`
 * `Object.keys` retorna todas las propiedades de un objeto
@@ -2903,10 +2925,17 @@ propiedades.forEach(function(propiedad) {
 ```
 * Podes leer más sobre `Object.keys` en el [sitio del MDN](https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Object/keys)
 
+#### Prácticas
+[Ejercicio 161](../ejercicios/consignas/js/ej161.md)
+[Ejercicio 162](../ejercicios/consignas/js/ej162.md)
+
 #### Visibilidad
 * Scope
 * Variables Globales / Variables Locales
 * Hoisting
+
+#### Prácticas
+[Ejercicio 152](../ejercicios/consignas/js/ej152.md)
 
 
 ## Más sobre funciones
