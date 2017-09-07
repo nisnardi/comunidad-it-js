@@ -48,3 +48,6 @@
 * [Declaración de variables](contenido/js.md)
 * [Operador de asignación](contenido/js.md)
 * [Tipos base](contenido/js.md)
+
+## JavaScript en el browser
+* [entrar](contenido/javascript-browser.md)
