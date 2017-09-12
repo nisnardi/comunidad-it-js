@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Prductos</title>
+    <script>
+      window.onload = function() {
+        // Seleccionamos el elemento ul
+        let ul = document.querySelector('ul');
+        const cantidadDeElementos = ul.children.length;
+        
+        // Dado que vamos sacando elementos lo hacemos desde atras hacia adelante
+        for (let index = (cantidadDeElementos-1); index >= 0; index--) {
+          let item = ul.children.item(index);
+          ul.removeChild(item);
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <ul>
+      <li>Bananas</li>
+      <li>Manzanas</li>
+      <li>Peras</li>
+      <li>Huevos</li>
+      <li>Tomates</li>
+      <li>Lechuga</li>
+      <li>Leche</li>
+    </ul>
+  </body>
+</html>

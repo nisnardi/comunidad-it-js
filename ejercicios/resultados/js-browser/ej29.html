@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Prductos</title>
+    <script>
+      window.onload = function() {
+        // Seleccionamos el elemento ul
+        let ul = document.querySelector('ul');
+
+        // Seleccionamos cada elemento del ul (li)
+        const elemento1 = ul.children.item(0);
+        const elemento2 = ul.children.item(1);
+        const elemento3 = ul.children.item(2);
+        const elemento4 = ul.children.item(3);
+        const elemento5 = ul.children.item(4);
+        const elemento6 = ul.children.item(5);
+        const elemento7 = ul.children.item(6);
+        
+        // Sacamos cada elemento de la lista
+        ul.removeChild(elemento1);
+        ul.removeChild(elemento2);
+        ul.removeChild(elemento3);
+        ul.removeChild(elemento4);
+        ul.removeChild(elemento5);
+        ul.removeChild(elemento6);
+        ul.removeChild(elemento7);
+      }
+    </script>
+  </head>
+  <body>
+    <ul>
+      <li>Bananas</li>
+      <li>Manzanas</li>
+      <li>Peras</li>
+      <li>Huevos</li>
+      <li>Tomates</li>
+      <li>Lechuga</li>
+      <li>Leche</li>
+    </ul>
+  </body>
+</html>

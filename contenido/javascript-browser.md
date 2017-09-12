@@ -752,6 +752,11 @@ var div = document.querySelector('div');
 div.innerHTML = ''; // chau chau contenido
 ```
 
+#### Prácticas
+[Ejercicio 29](../ejercicios/consignas/js-browser/ej29.md)
+[Ejercicio 30](../ejercicios/consignas/js-browser/ej30.md)
+[Ejercicio 31](../ejercicios/consignas/js-browser/ej31.md)
+
 #### Eventos
 * Manejo de eventos del DOM
 * Prevenir eventos por defecto
@@ -774,6 +779,10 @@ button.onClick = function() {
   // código para manejar que se hace al hacer click en el botón
 }
 ```
+
+#### Prácticas
+[Ejercicio 32](../ejercicios/consignas/js-browser/ej32.md)
+
 * La otra opción es registr un evento con `addEventListener`
 * Este método puede ser aplicado en cualquier objeto, eso incluye window, document y en todos los elementos. 
 * Este método soporta 2 parámetros:
@@ -797,6 +806,9 @@ let button = document.querySelector('button');
 button.addEventListener('click', clickHandler);
 ```
 
+#### Prácticas
+[Ejercicio 33](../ejercicios/consignas/js-browser/ej33.md)
+
 * Para quitar un listener podemos utilizar `removeEventListener`
 * Este método puede ser aplicado en cualquier objeto, eso incluye window, document y en todos los elementos
 * Este método soporta 2 parámetros:
@@ -814,6 +826,9 @@ button.addEventListener('click', clickHandler);
 button.removeEventListener('click', clickHandler); // este botón no tienen más el menejador de evento
 ```
 
+#### Prácticas
+[Ejercicio 34](../ejercicios/consignas/js-browser/ej34.md)
+
 * Por medio del objeto event podemos conocer más datos sobre el evento o prevenir que se ejecute el comportamiento por defecto de ejecución
 * Para prevenir la ejecución de un evento por defecto utilizamos el método `preventDefault`
 
@@ -824,6 +839,9 @@ hipervinculo.addEventListener('click', function(evento) {
   evento.preventDefault();  // de esta forma prevenimos que el hipervinculo ejecute su función por defecto
 });
 ```
+
+#### Prácticas
+[Ejercicio 35](../ejercicios/consignas/js-browser/ej35.md)
 
 * Podemos capturar algunos eventos del mouse, entre los más conocidos se encuentran: `click, dblclick, mouseover, mouseout y mousemove`
 * El objeto evento asociado al mouse tiene atributos que nos permite saber la posición donde se encuentra con clientX y clientY
@@ -836,6 +854,9 @@ body.addEventListener('click', function(evento) {
   evento.clientY;
 });
 ```
+
+#### Prácticas
+[Ejercicio 36](../ejercicios/consignas/js-browser/ej36.md)
 
 * También podemos controlar los eventos que se disparan cuando se presionan las teclas por medio de los eventos `keypress, keydown y keyup`
 * El objeto del evento tiene propiedades como `charCode` que nos retorna el número de tecla que fué presionado
@@ -850,6 +871,10 @@ body.addEventListener('keypress', function(evento) {
 });
 ```
 
+#### Prácticas
+[Ejercicio 37](../ejercicios/consignas/js-browser/ej37.md)
+[Ejercicio 38](../ejercicios/consignas/js-browser/ej38.md)
+
 #### Lista de eventos que se pueden utilizar:
 * Existen muchos eventos que podemos utilizar para crear UI interactivas:
   * onchange
@@ -860,3 +885,460 @@ body.addEventListener('keypress', function(evento) {
   * onresize
   * onscroll
   * onfocus / onblur
+
+#### Prácticas
+[Ejercicio 39](../ejercicios/consignas/js-browser/ej39.md)
+[Ejercicio 40](../ejercicios/consignas/js-browser/ej40.md)
+
+
+## Práctica extra
+[Ejercicio 41](../ejercicios/consignas/js-browser/ej41.md)
+[Ejercicio 42](../ejercicios/consignas/js-browser/ej42.md)
+[Ejercicio 43](../ejercicios/consignas/js-browser/ej43.md)
+[Ejercicio 44](../ejercicios/consignas/js-browser/ej44.md)
+[Ejercicio 45](../ejercicios/consignas/js-browser/ej45.md)
+
+#### Formularios
+* Los formularios en HTML son una manera muy buena de obtener datos por parte del usuario.
+* Por medio de ECMAScript podemos manejar los valores y eventos del formulario como también los de sus elementos
+* También podemos validar los datos que el usuario ingresa
+* Para poder interactuar con un formulario lo primero que tenemos que hacer es seleccionarlo
+
+**Ejemplo:**
+```js
+const form = document.querySelector('form');
+```
+
+* Otra forma de seleccionar los formularios es por medio del objeto `document` y la propiedad `forms`
+* La propiedad forms retorna una colección de todos los formularios que tiene el documento
+
+**Ejemplo:**
+```js
+  const formulario = document.forms[0];
+  const formularios = document.forms;
+```
+
+* Los elementos del tipo formulario tienen un atributo llamado `elements` y tiene la colección de elementos que tiene el formulario seleccionado
+
+**Ejemplo:**
+```js
+const form = document.querySelector('form');
+const elementos = form.elements;
+// retorna el elemento del formulario que está en el índice indicado
+const elemento = form.elements[indice];
+```
+
+* El objeto formulario tiene atributos como `action`, `target`, `encoding` y `method`
+* Al ser un objeto de Javascript podemos acceder a todos ellos de la misma forma que lo hacemos con cualquier otro objeto
+  * **action:** Establece la URL del documento que va a procesar la información enviada por el formulario
+  * **encoding:** Establece el tipo MIME con el que se va a encriptar los datos
+  * **method:** Establece cual es el método de HTTP que se va a utilizar para enviar los datos. Puede ser get o post
+  * **name:** Establece el nombre del formulario
+
+**Ejemplo:**
+```html
+<form action="guardar_usuario.html" method="get" enctype="application/x-www-form-urlencoded" name="login"></form>
+```
+```js
+const form = document.querySelector('form');
+
+console.log(form.action); // guardar_usuario.html
+console.log(form.encoding); // get
+console.log(form.method); // application/x-www-form-urlencoded
+console.log(form.name); // login
+```
+
+* Los elementos del formulario tienen un atributo llamado `value` que nos permite establecer u obtener el valor de un elemento
+* Con la propiedad value podemos obtener el valor de varios de los elementos de un formulario como por ejemplo: 
+  * inputs de texto, password, hidden
+  * checkbox
+  * radio
+  * textarea
+
+**Ejemplo:**
+```html
+<form action="guardar_usuario.html" method="get" enctype="application/x-www-form-urlencoded" name="login">
+  <input type="text" id="username" name="username" />
+  <input type="password" id="pass" name="pass" />
+  <input type="submit" name="submit" value="Enviar" />
+</form>
+```
+```js
+const form = document.querySelector('form');
+const username = form.elements[0].value;
+
+username.value; // Obtenemos un string vacío
+username.value = 'pepe'; // Establecemos el valor del input username en pepe
+```
+
+* Por medio del evento `submit` del formulario podemos mandar los datos a otro documento
+* Podemos cortar la ejecución del `submit` de un formulario retornando un valor `false`
+
+**Ejemplo:**
+```html
+<form action="guardar_usuario.html" method="get" enctype="application/x-www-form-urlencoded" name="login">
+  <input type="text" id="username" name="username" />
+  <input type="password" id="pass" name="pass" />
+  <input type="submit" name="submit" value="Enviar" />
+</form>
+```
+```js
+const form = document.querySelector('form');
+
+form.onsubmit = function() {
+	// Este evento maneja la forma en que se va a submitear el formulario
+  // Retornamos false para evitar que se ejecute el evento submit del formulario
+  return false;
+}
+```
+
+* Al igual que el resto de los eventos podemos controlar que no se ejecute el evento por default con el método del eventos preventDefault()
+**Ejemplo:**
+```html
+<form action="guardar_usuario.html" method="get" enctype="application/x-www-form-urlencoded" name="login">
+  <input type="text" id="username" name="username" />
+  <input type="password" id="pass" name="pass" />
+  <input type="submit" name="submit" value="Enviar" />
+</form>
+```
+```js
+const form = document.querySelector('form');
+
+form.onsubmit = function(evento) {
+  evento.preventDefault();
+  return false;
+}
+```
+
+* Para poder obtener el valor de un elemento `select` podemos utilizar la propiedad `selectedIndex`
+* Esta propiedad retorna el índice numérico de la opción seleccionada
+* Otra de las propiedades que tiene el objeto `select` es `options` que retorna la colección de elementos options
+* Combinando estos dos atributos podemos obtener el valor del `option` seleccionado en el elemento `select`
+* Al igual que el resto de los elementos HTML del formulario, el objeto option tiene un atributo value que nos da el valor del mismo
+
+**Ejemplo:**
+```html
+<form action="guardar_usuario.html" method="get" enctype="application/x-www-form-urlencoded" name="login">
+  <select name="paises" id="paises">
+    <option value="ar">Argentina</option>
+    <option value="br">Brasil</option>
+    <option value="cl">Chile</option>
+  </select>
+</form>
+```
+```js
+const select = document.querySelector('select');
+
+console.log(select.selectedIndex);  // retorna el índice del valor seleccionado
+console.log(select.options);  // retorna la colección de elementos options
+
+Select.options[indice]; // retorna el option seleccionado
+console.log(select.options[indice].value); // retorna el valor del elemento seleccionado.
+```
+
+* Los elementos `checkbox` tienen la propiedad `value` que nos retorna su valor como ya vimos
+* Podemos establecer si un `checkbox` está seleccionado o no utilizando la propiedad `checked`
+* Esta propiedad retorna un valor boolean
+* También podemos asignarle un valor boolean para establecer su estado
+
+**Ejemplo:**
+```html
+<form action="guardar_usuario.html" method="get" enctype="application/x-www-form-urlencoded" name="login">
+  <input type="checkbox" name="sexo" value="f" checked> Femenino
+  <input type="checkbox" name="sexo" value="m"> Masculino
+</form>
+```
+```js
+const checkboxes = document.querySelector('checkbox');
+const femenino = checkboxes[0];
+const masculino = checkboxes[1];
+
+console.log(femenino.checked);  // retorna el valor true
+femenino.checked = false; // establece un nuevo valor al elemento.
+console.log(femenino.value); // f
+
+masculino.checked;  // retorna el valor false
+masculino.checked = true; // establece un nuevo valor al elemento.
+console.log(masculino.value); // m
+```
+
+* Podemos utilizar el selector de css `:checked` para obtener el checkbox seleccionado de la siguiente forma:
+
+**Ejemplo:**
+```html
+<form action="guardar_usuario.html" method="get" enctype="application/x-www-form-urlencoded" name="login">
+  <input type="checkbox" name="sexo" value="f" checked> Femenino
+  <input type="checkbox" name="sexo" value="m"> Masculino
+</form>
+```
+```js
+const sexo = document.querySelector('checkbox:checked');
+
+console.log(sexo.checked);  // retorna el valor true
+sexo.checked = false; // establece un nuevo valor al elemento.
+console.log(sexo.value); // f
+```
+
+* Los elementos del formulario pueden manejar eventos por medio de los métodos: onfocus, onblur, onchange, oninput
+* También se pueden escribir utilizando el método addEventListener(callback)
+  * **focus:** se dispara al establecer el foco en un elemento
+  * **blur:** se dispara al remover el foco sobre un elemento
+  * **change:** se dispara cuando cambia el valor de un elementos
+  * **input:** se dispara al ingresar datos a un elemento
+
+**Ejemplo:**
+```html
+<form action="guardar_usuario.html" method="get" enctype="application/x-www-form-urlencoded" name="login">
+  <input type="text" id="username" name="username" />
+  <input type="password" id="pass" name="pass" />
+  <input type="submit" name="submit" value="Enviar" />
+</form>
+```
+```js
+const form = document.querySelector('form');
+const username = form.elements[0];
+
+username.onfocus = function() {
+  // código que maneja el focus del elemento
+  console.log('Hicieron foco en el campo username');
+}
+
+username.onblur = function() {
+  // código que maneja el blur del elemento
+  console.log('Se perdió el foco del campo username');
+}
+
+username.onchange = function() {
+  // código que maneja el cambio de valor
+  console.log('Cambiaron el valor del campo username');
+}
+
+username.oninput = function() {
+  // código que maneja el ingreso de datos a un elemento
+  console.log('Están cambiaron el valor del campo username');
+}
+```
+
+* Por medio del evento `change` podemos manejar el cambio de selección de un elemento select
+
+**Ejemplo:**
+```html
+<form action="guardar_usuario.html" method="get" enctype="application/x-www-form-urlencoded" name="login">
+  <select name="paises" id="paises">
+    <option value="ar">Argentina</option>
+    <option value="br">Brasil</option>
+    <option value="cl">Chile</option>
+  </select>
+</form>
+```
+```js
+const select = document.querySelector('select');
+
+select.onchange = function() { 
+  const index = select.selectedIndex;
+  const valor = select.options[index].value;
+  console.log(index);
+  console.log(valor);
+}
+```
+
+* Para validar si un campo de texto está vacio podemos combinar la propiedad `value` y la propiedad `length` de los strings
+
+**Ejemplo:**
+```html
+<form action="guardar_usuario.html" method="get" enctype="application/x-www-form-urlencoded" name="login">
+  <input type="text" id="username" name="username" />
+  <input type="password" id="pass" name="pass" />
+  <input type="submit" name="submit" value="Enviar" />
+</form>
+```
+```js
+const form = document.querySelector('form');
+
+form.onsubmit = function(evento) {
+  evento.preventDefault();
+  const username = form.elements[0];
+
+  if (username.length === 0) {
+    console.log('Username incorrecto');
+    return false;
+  }
+
+  return true;
+}
+```
+
+# Regex
+
+* ECMAScript tiene expresiones regulares como tipo de dato y nos permite encontrar patrones de texto en un string
+* Por lo general se pueden utilizar para validar los campos de textos
+* Las expresiones regulares o `regex` tienen un método `test()` que nos permiten validar si un string para saber si cumple con la expresión regular
+
+**Ejemplo:**
+```html
+<form action="guardar_usuario.html" method="get" enctype="application/x-www-form-urlencoded" name="login">
+  <input type="text" id="username" name="username" />
+  <input type="text" id="mail" name="mail" />
+  <input type="password" id="pass" name="pass" />
+  <input type="submit" name="submit" value="Enviar" />
+</form>
+```
+```js
+const form = document.querySelector('form');
+
+const validarUsername = function(username) {
+  // valida que el string tenga números y letras
+  const regexCampoVacio = /^[a-z0-9]+$/i;
+  return regexCampoVacio.test(username);
+}
+
+const validarMail = function(mail) {
+  // valida una estructura de mail. Hay muchas opciones para hacer esto
+  const regexMail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+  // retorna un valor boolean dependiendo si cumple o no con la expresión regular.
+  return regexMail.test(mail);
+}
+
+form.onsubmit = function(evento) {
+  evento.preventDefault();
+  const username = form.elements[0];
+  const mail = form.elements[1];
+
+  if (!validarUsername(username)) {
+    console.log('Username incorrecto');
+    return false;
+  }
+
+  if (!validarMail(mail)) {
+    console.log('Email incorrecto');
+    return false;
+  }
+
+  return true;
+}
+```
+
+* Para saber más sobre regex pueden leer [acá](http://www.robertoballester.com/pequeno-manual-sobre-expresiones-regulares-regex/)
+* También pueden buscar regex en la siguiente [biblioteca](http://www.regexlib.com/?AspxAutoDetectCookieSupport=1)
+
+## AJAX
+
+### JSON
+* JSON significa **JavaScript Object Notation** y es un formato para intercambiar datos de forma simple
+* Es fácil de leer y escribir
+* En su estructura es muy parecido a un objeto literal de ECMAScript con algunas diferencias
+* Los nombres de las propiedades se escriben entre comillas dobles y los valores de string también
+
+**Ejemplo:**
+```js
+var objetoEnFormatoJSON = { 
+  "atributo": "valor", 
+  "atributo1": 1, 
+  "atributo2": [], 
+  "atributo3": null, 
+  "atributo4": false
+};
+```
+
+* ECMAScript tiene un objeto `JSON` que tiene los métodos `stringify()` y `parse()`
+  * **stringify:** permite pasar un objeto o valor de javascript al formato JSON
+  * **parse:** toma una cadena de caracteres en formato JSON y lo transforma en un objeto o valor de ECMASCript
+* Gracias a estos 2 métodos se puede utilizar el formato JSON para intercambiar datos en formato de texto
+* Teniendo una variable en formato JSON se accede a sus atributos de la siguiente manera:
+
+**Ejemplo:**
+```js
+// Ejemplo stringify
+// Ejemplo parse
+```
+
+### XMLHttpRequest / AJAX
+* AJAX significa **Asynchronous Javascript and XML**
+* Es una forma de mandar y recibir datos sin tener que recargar todo el documento
+* Nos permite crear widgets dinámicos
+* Utilizando AJAX podemos: 
+  * Refrescar el contenido de una página sin recargarla
+  * Pedir, recibir y enviar información a un servidor
+* ECMASCript tiene un objeto llamado `XMLHttpRequest` que nos permite realizar llamados de AJAX
+
+**Ejemplo:**
+```js
+const xmlhttp = new XMLHttpRequest();
+```
+
+https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/open
+xmlhttp.open("GET", "url", true);
+
+
+var xmlhttp = new XMLHttpRequest();
+xmlhttp.onreadystatechange = function() {
+		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+			console.log(xmlhttp.responseText);
+		//Mi código
+		}
+};
+
+
+xmlhttp.onreadystatechange
+Una función del objeto JavaScript que se llama cuando el atributo readyState cambia. El callback se llama desde la interfaz del usuario.
+
+xmlhttp.readyState
+0 si no se inicializó, 1 si está cargando, 2 si ya se envió el pedido, 3 si esta descargando la respuesta y 4 si terminó
+
+xmlhttp.status
+El estado de la respuesta al pedido. Este es el código HTTPresult (por ejemplo, status es 200 por un pedido exitoso). Solo lectura.
+
+xmlhttp.responseText
+La respuesta al pedido como texto, o null si el pedido no fue exitoso o todavía no se envió. Solo lectura.
+
+
+
+var xmlhttp = new XMLHttpRequest();
+xmlhttp.onreadystatechange = function() {
+		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+			console.log(xmlhttp.responseText);
+		//Mi código
+		}
+};
+xmlhttp.open("GET", "url", true);
+
+
+Inicializa el pedido. Este método es para ser usado desde código JavaScript.
+method
+El método HTTP a usar: tanto "POST" o "GET". Se ignora para urls que no son de HTTP.
+url
+La URL a la que se envía el pedido.
+async
+Un parametro opcional, booleano que por defecto es true. Indica si la operación se realiza de manera asincrónica.
+
+
+
+var xmlhttp = new XMLHttpRequest();
+xmlhttp.onreadystatechange = function() {
+		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+			console.log(xmlhttp.responseText);
+		//Mi código
+		}
+};
+xmlhttp.open("GET", "url", true);
+xmlhttp.send();
+
+Envía el pedido. 
+
+
+var xmlhttp = new XMLHttpRequest();
+xmlhttp.onreadystatechange = function() {
+		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+			console.log(xmlhttp.responseText);
+		//Mi código
+		}
+};
+xmlhttp.open("GET", "url", true);
+xmlhttp.send();
+
+xhttp.open("POST", "ajax_info.txt", true);
+xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+var params = “nombres=Nicolas&apellidos=Isnardi”
+xhttp.send(params);
+
+#### Crear un widget

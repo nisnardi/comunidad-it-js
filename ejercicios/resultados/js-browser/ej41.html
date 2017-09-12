@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Document</title>
+    <style>
+      li {
+        cursor:pointer;
+      }
+      .tachado {
+        text-decoration: line-through;
+      }
+    </style>
+    <script>
+      window.onload = function() {
+        const body = document.querySelector('body');
+        const lista = document.createElement('ul');
+        const tareas = [
+          'ir al super',
+          'cargar nafta',
+          'estudiar ECMAScript',
+          'salir con amigos',
+          'pasear los perros',
+          'renovar DNI',
+          'ir a la oficina',
+          'entrevista de trabajo',
+          'ir a la peluqueria',
+          'lavar el auto'
+        ];
+
+        tareas.forEach(function(tarea) {
+          const elemento = document.createElement('li');
+          elemento.textContent = tarea;
+          elemento.onclick = function() {
+            elemento.classList.toggle('tachado');
+          }
+          lista.appendChild(elemento);
+        });
+
+        body.appendChild(lista);
+      }
+    </script>
+  </head>
+  <body>    
+  </body>
+</html>

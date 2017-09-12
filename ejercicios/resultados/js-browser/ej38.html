@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Eventos</title>
+    <script>
+      window.onload = function() {
+        const boton1 = document.querySelector('#primer-boton');
+        const boton2 = document.getElementById('segundo-boton');
+        const hipervinculo = document.querySelector('a');
+        const html = document.querySelector('html');
+        const div = document.querySelector('div');
+        
+        div.style.color = 'red';
+        div.style.fontFamily = 'Arial';
+        div.style.fontSize = '30px';
+        div.style.paddingBottom = '20px';
+
+        const saludar = function() {
+          alert('Hiciste click en un botón controlado con addEventListener');
+        };
+        
+        boton1.addEventListener('click', saludar);
+        
+        boton2.onclick = function() {
+          boton1.removeEventListener('click', saludar);
+        }
+
+        hipervinculo.addEventListener('click', function(event) {
+          event.preventDefault();
+          alert('Este hipervinculo no navega a ningún lado!!!');
+        });
+
+        html.addEventListener('click', function(event) {
+          console.log(`x: ${event.clientX}, y: ${event.clientY}`);
+        });
+
+        html.addEventListener('keypress', function(event) {
+          const valorLetra = String.fromCharCode(event.charCode);
+          div.textContent += valorLetra;
+        });
+      }
+    </script>
+  </head>
+  <body>
+    <div></div>
+    <button id="primer-boton">Haceme Click!!</button>
+    <button id="segundo-boton">Sacar handler</button>
+    <a href="http://google.com">Hipervinculo controlado por ECMAScript</a>
+  </body>
+</html>

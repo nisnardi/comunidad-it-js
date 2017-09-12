@@ -1,0 +1,15 @@
+body {
+  background-color: #eee;
+}
+
+img {
+  border: 1px solid black;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+img:hover {
+  box-shadow: 2px 2px 16px 1px rgba(0,0,0,0.75);
+}
