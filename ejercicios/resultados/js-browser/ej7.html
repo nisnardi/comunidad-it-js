@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ej 7</title>
+    <script>
+      window.onload = function() {
+        let numero = 0;
+        let suma = 0;
+
+        // Mostrar al usuario la siguiente alerta: 
+        alert('Vamos a sumar todos los números que Ud. ingrese');
+
+        do {
+          // Pedirle al usuario que ingrese un número
+          numero = parseInt(prompt('Ingrese un número'));
+          contador++;
+          // Llevar la suma de todos los números que ingrese el usuario
+          suma += numero;
+          
+          // Mostrar el resultado parcial en consola
+          console.log(`El resultado por ahora es: ${suma}`);
+          
+          // Repetir esta acción mientras el usuario confirme que quiere ingresar otro número        
+        } while(confirm('Por ahora la suma es ' + suma +' ¿Quiere ingresar otro número?'))
+
+        console.log(`La suma total es: ${suma}`);
+      }
+    </script>
+  </head>
+  <body>
+    hola
+  </body>
+</html>
