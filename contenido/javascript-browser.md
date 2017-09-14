@@ -620,7 +620,7 @@ parrafo.innerText; // Mi Texto
 parrafo.innerText = 'ECMAScript en el browser está muy bueno';
 parrafo.innerText; // ECMAScript en el browser está muy bueno
 ```
-* La propiedad standar de los elementos para leer o modificar el contenido de un elemento se llama `textContext`
+* La propiedad standar de los elementos para leer o modificar el contenido de un elemento se llama `textContent`
 
 **Ejemplo:**
 ```html
@@ -628,13 +628,13 @@ parrafo.innerText; // ECMAScript en el browser está muy bueno
 ```
 ```js
 const parrafo = document.querySelector('p');
-parrafo.textContext; // Mi Texto
+parrafo.textContent; // Mi Texto
 
-parrafo.textContext = 'ECMAScript en el browser está muy bueno';
-parrafo.textContext; // ECMAScript en el browser está muy bueno
+parrafo.textContent = 'ECMAScript en el browser está muy bueno';
+parrafo.textContent; // ECMAScript en el browser está muy bueno
 ```
 
-* Tanto con `innerText` como con `textContext` podemos asignar o leer el contenido de un elemento en formato de string
+* Tanto con `innerText` como con `textContent` podemos asignar o leer el contenido de un elemento en formato de string
 * Existe otra forma de establecer o cambiar el contenido de un elemento y se llama `innerHTML`
 * `innerHTML` paresea el texto que se va a asignar al elemento y si encuentra que ese texto tiene formato de HTML intenta crear elementos con ese contenido
 
@@ -708,7 +708,7 @@ var nuevoElemento = document.createElement('p');
 **Ejemplo:**
 ```js
 var parrafo = document.createElement('p');
-parrafo.textContext = 'Hola soy un párrafo';
+parrafo.textContent = 'Hola soy un párrafo';
 var div = document.createElement('div');
 div.appendChild(p);
 ```
