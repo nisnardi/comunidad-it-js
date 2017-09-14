@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Eventos de los inputs</title>
+  <script>
+    window.onload = function() {
+      const username = document.querySelector('#username');
+      const password = document.querySelector('#pass');
+
+      const mostrarValor = function(evento) {
+        const texto = `Elemento: ${this.id}, valor: ${this.value}`;
+        console.log(texto);
+      }
+
+      username.onfocus = mostrarValor;
+      username.onblur = mostrarValor;
+      username.oninput = mostrarValor;
+
+      password.onfocus = mostrarValor;
+      password.onblur = mostrarValor;
+      password.oninput = mostrarValor;
+
+    }
+  </script>
+</head>
+<body>
+  <form action="guardar_usuario.html" method="post" enctype="application/x-www-form-urlencoded" name="login">
+    <input type="text" id="username" name="username" />
+    <input type="password" id="pass" name="pass" />
+    <input type="submit" name="submit" value="Enviar" />
+  </form>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Elementos del form</title>
+  <style>
+    .negrita {
+      font-weight: bold;
+    }
+  </style>
+  <script>
+    window.onload = function() {
+      const form = document.querySelector('form');
+
+      const obtenerContenido = function(nombre, valor) {
+        return `<span class="negrita">nombre:</span> ${nombre}, <span class="negrita">valor:</span> ${valor}`; 
+      }
+
+      const mostrarContenidoDelForm = function() {
+        const username = document.querySelector('#username');
+        const password = document.querySelector('#pass');
+      
+        const lista = document.createElement('ul');
+        const elementoUsername = document.createElement('li');
+        const elementoPassword = document.createElement('li');
+
+        elementoUsername.innerHTML = obtenerContenido(username.id, username.value);
+        elementoPassword.innerHTML = obtenerContenido(password.id, password.value);
+        
+        lista.appendChild(elementoUsername);
+        lista.appendChild(elementoPassword);
+
+        document.body.appendChild(lista);
+      }
+
+      form.onsubmit = function(evento) {
+        evento.preventDefault();
+        mostrarContenidoDelForm();
+        return false;
+      }
+    }
+  </script>
+</head>
+<body>
+  <form action="guardar_usuario.html" method="post" enctype="application/x-www-form-urlencoded" name="login">
+    <input type="text" id="username" name="username" />
+    <input type="password" id="pass" name="pass" />
+    <input type="submit" name="submit" value="Enviar" />
+  </form>
+</body>
+</html>

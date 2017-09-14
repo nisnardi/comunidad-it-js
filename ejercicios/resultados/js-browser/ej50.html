@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Validar form</title>
+  <style>
+    .error {
+      font-weight: bold;
+      color: red;
+    }
+    .success {
+      font-weight: bold;
+      color: green;
+    }
+  </style>
+  <script>
+    window.onload = function() {
+      const form = document.querySelector('form');
+      const username = document.querySelector('#username');
+      const password = document.querySelector('#pass');
+      const email = document.querySelector('#email');
+
+      const mensaje = document.querySelector('#mensaje');
+      let mensajeFinal; 
+
+      const validarAlfaNumerico = function(texto) {
+        const alfa = /^[a-z0-9]+$/i;
+        return alfa.test(texto);
+      }
+
+      const validarEmail = function(email) {
+        const regexMail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+        return regexMail.test(email);
+      }
+
+
+      form.onsubmit = function(evento) {
+        evento.preventDefault();
+        
+        mensaje.innerHTML = '';
+        if (!validarAlfaNumerico(username.value) || !validarAlfaNumerico(password.value) || !validarEmail(email.value)) {
+          mensajeFinal = '<p class="error">Por favor ingrese un nombre de usuario, password y email válidos</p>';
+        } else {
+          mensajeFinal = '<p class="success">Usuario Logeado</p>';
+
+        }
+        mensaje.innerHTML = mensajeFinal;
+      }
+    }
+  </script>
+</head>
+<body>
+  <form action="guardar_usuario.html" method="post" enctype="application/x-www-form-urlencoded" name="login">
+    <input type="text" id="username" name="username" placeholder="username" />
+    <input type="text" id="email" name="email"  placeholder="email" />
+    <input type="password" id="pass" name="pass" placeholder="pass" />
+    <input type="submit" name="submit" value="Enviar" />
+    <div id="mensaje"></div>
+  </form>
+</body>
+</html>

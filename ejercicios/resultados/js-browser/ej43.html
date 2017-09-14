@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Propiedades del form</title>
+  <style>
+    .negrita {
+      font-weight: bold;
+    }
+  </style>
+  <script>
+    window.onload = function() {
+      const form = document.querySelector('form');
+      const action = form.action;
+      const encoding = form.encoding;
+      const method = form.method;
+      const name = form.name;
+
+      const atributos = [
+        { nombre: 'action', valor: action },
+        { nombre: 'encoding', valor: encoding },
+        { nombre: 'method', valor: method },
+        { nombre: 'name', valor: name },
+      ]
+
+      const lista = document.createElement('ul');
+      atributos.forEach(function(atributo) {
+        const elementoDeLista = document.createElement('li');
+        elementoDeLista.innerHTML = `<span class="negrita">nombre:</span> ${atributo.nombre}, <span class="negrita">valor:</span> ${atributo.valor}`;
+        lista.appendChild(elementoDeLista);
+      });
+
+      document.body.appendChild(lista);
+    }
+  </script>
+</head>
+<body>
+  <form action="guardar_usuario.html" method="post" enctype="application/x-www-form-urlencoded" name="login">
+    <input type="text" id="username" name="username" />
+    <input type="password" id="pass" name="pass" />
+    <input type="submit" name="submit" value="Enviar" />
+  </form>
+</body>
+</html>
