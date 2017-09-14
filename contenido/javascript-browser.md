@@ -884,6 +884,7 @@ body.addEventListener('keypress', function(evento) {
   * onload
   * onresize
   * onscroll
+  * oninput
   * onfocus / onblur
 
 #### Prácticas
@@ -894,9 +895,6 @@ body.addEventListener('keypress', function(evento) {
 ## Práctica extra
 [Ejercicio 41](../ejercicios/consignas/js-browser/ej41.md)
 [Ejercicio 42](../ejercicios/consignas/js-browser/ej42.md)
-[Ejercicio 43](../ejercicios/consignas/js-browser/ej43.md)
-[Ejercicio 44](../ejercicios/consignas/js-browser/ej44.md)
-[Ejercicio 45](../ejercicios/consignas/js-browser/ej45.md)
 
 #### Formularios
 * Los formularios en HTML son una manera muy buena de obtener datos por parte del usuario.
@@ -948,6 +946,9 @@ console.log(form.method); // application/x-www-form-urlencoded
 console.log(form.name); // login
 ```
 
+#### Prácticas
+[Ejercicio 43](../ejercicios/consignas/js-browser/ej43.md)
+
 * Los elementos del formulario tienen un atributo llamado `value` que nos permite establecer u obtener el valor de un elemento
 * Con la propiedad value podemos obtener el valor de varios de los elementos de un formulario como por ejemplo: 
   * inputs de texto, password, hidden
@@ -970,6 +971,9 @@ const username = form.elements[0].value;
 username.value; // Obtenemos un string vacío
 username.value = 'pepe'; // Establecemos el valor del input username en pepe
 ```
+
+#### Prácticas
+[Ejercicio 44](../ejercicios/consignas/js-browser/ej44.md)
 
 * Por medio del evento `submit` del formulario podemos mandar los datos a otro documento
 * Podemos cortar la ejecución del `submit` de un formulario retornando un valor `false`
@@ -1010,6 +1014,9 @@ form.onsubmit = function(evento) {
 }
 ```
 
+#### Prácticas
+[Ejercicio 45](../ejercicios/consignas/js-browser/ej45.md)
+
 * Para poder obtener el valor de un elemento `select` podemos utilizar la propiedad `selectedIndex`
 * Esta propiedad retorna el índice numérico de la opción seleccionada
 * Otra de las propiedades que tiene el objeto `select` es `options` que retorna la colección de elementos options
@@ -1035,6 +1042,9 @@ console.log(select.options);  // retorna la colección de elementos options
 Select.options[indice]; // retorna el option seleccionado
 console.log(select.options[indice].value); // retorna el valor del elemento seleccionado.
 ```
+
+#### Prácticas
+[Ejercicio 46](../ejercicios/consignas/js-browser/ej46.md)
 
 * Los elementos `checkbox` tienen la propiedad `value` que nos retorna su valor como ya vimos
 * Podemos establecer si un `checkbox` está seleccionado o no utilizando la propiedad `checked`
@@ -1072,12 +1082,15 @@ console.log(masculino.value); // m
 </form>
 ```
 ```js
-const sexo = document.querySelector('checkbox:checked');
+const sexo = document.querySelector('input:checked');
 
 console.log(sexo.checked);  // retorna el valor true
 sexo.checked = false; // establece un nuevo valor al elemento.
 console.log(sexo.value); // f
 ```
+
+#### Prácticas
+[Ejercicio 47](../ejercicios/consignas/js-browser/ej47.md)
 
 * Los elementos del formulario pueden manejar eventos por medio de los métodos: onfocus, onblur, onchange, oninput
 * También se pueden escribir utilizando el método addEventListener(callback)
@@ -1106,11 +1119,6 @@ username.onfocus = function() {
 username.onblur = function() {
   // código que maneja el blur del elemento
   console.log('Se perdió el foco del campo username');
-}
-
-username.onchange = function() {
-  // código que maneja el cambio de valor
-  console.log('Cambiaron el valor del campo username');
 }
 
 username.oninput = function() {
@@ -1142,6 +1150,9 @@ select.onchange = function() {
 }
 ```
 
+#### Prácticas
+[Ejercicio 48](../ejercicios/consignas/js-browser/ej48.md)
+
 * Para validar si un campo de texto está vacio podemos combinar la propiedad `value` y la propiedad `length` de los strings
 
 **Ejemplo:**
@@ -1167,6 +1178,9 @@ form.onsubmit = function(evento) {
   return true;
 }
 ```
+
+#### Prácticas
+[Ejercicio 49](../ejercicios/consignas/js-browser/ej49.md)
 
 # Regex
 
@@ -1221,6 +1235,9 @@ form.onsubmit = function(evento) {
 * Para saber más sobre regex pueden leer [acá](http://www.robertoballester.com/pequeno-manual-sobre-expresiones-regulares-regex/)
 * También pueden buscar regex en la siguiente [biblioteca](http://www.regexlib.com/?AspxAutoDetectCookieSupport=1)
 
+#### Prácticas
+[Ejercicio 50](../ejercicios/consignas/js-browser/ej50.md)
+
 ## AJAX
 
 ### JSON
@@ -1249,8 +1266,47 @@ var objetoEnFormatoJSON = {
 **Ejemplo:**
 ```js
 // Ejemplo stringify
+const usuario = {
+  username: 'pepe',
+  password: '12345',
+  email: 'pepe@gmail.com',
+  casado: true,
+  hijos: ['maria', 'juan']
+}
+
+const usuarioJSON = JSON.stringify(usuario); // retorna un JSON del objeto usuario
+console.log(usuarioJSON);
+
+/*
+{
+  "username":"pepe",
+  "password":"12345",
+  "email":"pepe@gmail.com",
+  "casado":true,
+  "hijos":["maria","juan"]
+}
+*/
+
 // Ejemplo parse
+
+const usuarioDeJSONaJS = JSON.parse(usuarioJSON); // retorna un objeto de ECMAScript
+console.log(usuarioDeJSONaJS);
+
+/*
+{
+  username: "pepe", 
+  password: "12345", 
+  email: "pepe@gmail.com", 
+  casado: true, 
+  hijos: ["maria", "juan"]
+}
+*/
 ```
+
+* En este ejemplo podemos ver que de forma muy fácil podemos transformar un objeto de ECMAScript a JSON y viceversa
+
+#### Prácticas
+[Ejercicio 51](../ejercicios/consignas/js-browser/ej51.md)
 
 ### XMLHttpRequest / AJAX
 * AJAX significa **Asynchronous Javascript and XML**
@@ -1260,85 +1316,59 @@ var objetoEnFormatoJSON = {
   * Refrescar el contenido de una página sin recargarla
   * Pedir, recibir y enviar información a un servidor
 * ECMASCript tiene un objeto llamado `XMLHttpRequest` que nos permite realizar llamados de AJAX
+  * Este objeto tiene un método `open` que acepta varios parámetros para configurar el request que queremos realizar
+  * Otro de sus métodos es `send` y permite ejecutar el request
+  * Tambien tiene un event handler que se llama `onreadystatechange` que nos permite menejar todo el ciclo de vida del request hasta obtener un response
+  * La propiedad `readyState` retorna un número informando el estado del objeto:
+    * 0 si no se inicializó
+    * 1 si está cargando
+    * 2 si ya se envió el pedido
+    * 3 si esta descargando la respuesta
+    * 4 si terminó
+  * Otra de sus propiedades es `status` y nos permite saber cual es el status de la respuesta
+    * Si el `status` es 200 entonces significa que el pedido fue satisfactorio
+  * Para obtener la respuesta utilizamos la propiedad `responseText`
+  * Si el server retorna un objeto JSON lo podemos convertir en un objeto de ECMAScript y utilizarlo en nuestro código. Retorna null si no obtiene una respuesta
+  
 
-**Ejemplo:**
+**Ejemplo De pedido:**
 ```js
-const xmlhttp = new XMLHttpRequest();
+var xmlhttp = new XMLHttpRequest();
+
+xmlhttp.onreadystatechange = function() {
+		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+			console.log(xmlhttp.responseText);
+		}
+};
+
+xmlhttp.open("GET", "url", true);
+
+xmlhttp.send();
 ```
 
-https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/open
-xmlhttp.open("GET", "url", true);
-
-
+**Ejemplo de pedido por POST enviando datos:**
+```js
+// Creamos el objeto
 var xmlhttp = new XMLHttpRequest();
-xmlhttp.onreadystatechange = function() {
-		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-			console.log(xmlhttp.responseText);
-		//Mi código
-		}
-};
 
-
-xmlhttp.onreadystatechange
-Una función del objeto JavaScript que se llama cuando el atributo readyState cambia. El callback se llama desde la interfaz del usuario.
-
-xmlhttp.readyState
-0 si no se inicializó, 1 si está cargando, 2 si ya se envió el pedido, 3 si esta descargando la respuesta y 4 si terminó
-
-xmlhttp.status
-El estado de la respuesta al pedido. Este es el código HTTPresult (por ejemplo, status es 200 por un pedido exitoso). Solo lectura.
-
-xmlhttp.responseText
-La respuesta al pedido como texto, o null si el pedido no fue exitoso o todavía no se envió. Solo lectura.
-
-
-
-var xmlhttp = new XMLHttpRequest();
-xmlhttp.onreadystatechange = function() {
-		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-			console.log(xmlhttp.responseText);
-		//Mi código
-		}
-};
-xmlhttp.open("GET", "url", true);
-
-
-Inicializa el pedido. Este método es para ser usado desde código JavaScript.
-method
-El método HTTP a usar: tanto "POST" o "GET". Se ignora para urls que no son de HTTP.
-url
-La URL a la que se envía el pedido.
-async
-Un parametro opcional, booleano que por defecto es true. Indica si la operación se realiza de manera asincrónica.
-
-
-
-var xmlhttp = new XMLHttpRequest();
-xmlhttp.onreadystatechange = function() {
-		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-			console.log(xmlhttp.responseText);
-		//Mi código
-		}
-};
-xmlhttp.open("GET", "url", true);
-xmlhttp.send();
-
-Envía el pedido. 
-
-
-var xmlhttp = new XMLHttpRequest();
-xmlhttp.onreadystatechange = function() {
-		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-			console.log(xmlhttp.responseText);
-		//Mi código
-		}
-};
-xmlhttp.open("GET", "url", true);
-xmlhttp.send();
-
-xhttp.open("POST", "ajax_info.txt", true);
+// Establecemos encabezado
 xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-var params = “nombres=Nicolas&apellidos=Isnardi”
-xhttp.send(params);
 
-#### Crear un widget
+// Armamos los valores que queremos enviar
+const params = “nombres=Nicolas&apellidos=Isnardi”
+
+// Abrimos el request
+xhttp.open("POST", "ajax_info.txt", true);
+
+// Enviamos el request con los parámetros que necesitamos enviar
+xhttp.send(params);
+```
+
+* Pueden leer más sobre AJAX en el [sitio de MDN](https://developer.mozilla.org/es/docs/AJAX)
+* Pueden leer más sobre el objeto XMLHttpRequest  en el [sitio de MDN](https://developer.mozilla.org/es/docs/Web/API/XMLHttpRequest)
+
+#### Prácticas
+[Ejercicio 52](../ejercicios/consignas/js-browser/ej52.md)
+
+* **Investigar** el nuevo método `fetch`
+* Pueden leer más sobre este método en el [sitio de MDN](https://developer.mozilla.org/es/docs/Web/API/Fetch_API/Utilizando_Fetch)
