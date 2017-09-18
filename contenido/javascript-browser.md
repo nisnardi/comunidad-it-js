@@ -775,7 +775,7 @@ div.innerHTML = ''; // chau chau contenido
 **Ejemplo:**
 ```js
 let button = document.querySelector('button');
-button.onClick = function() {
+button.onclick = function() {
   // código para manejar que se hace al hacer click en el botón
 }
 ```
