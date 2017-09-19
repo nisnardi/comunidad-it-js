@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Elementos dinámicos</title>
+  <script>
+    window.onload = function() {
+      // También puedo usar document.body para acceso directo al elemento body
+      const body = document.querySelector('body')
+      const nombres = ['Mara', 'Steve', 'Ciro', 'Amelia', 'Sissa', 'Osito', 'Amelie', 'Sansa', 'Roco', 'Pepe']      
+      const lista = document.createElement('ul')
+      nombres.forEach(function(nombre) {
+        const elemento = document.createElement('li')
+        elemento.textContent = nombre
+        lista.appendChild(elemento)
+      })
+      body.appendChild(lista)
+    }    
+  </script>
+</head>
+<body>  
+</body>
+</html>

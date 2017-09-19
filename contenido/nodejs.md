@@ -632,19 +632,545 @@ app.use('/', wiki);
 #### Prácticas
 [Ejercicio 13](../ejercicios/consignas/node/ej13.md)
 
+### Manejo de status y errores
+* El objeto response tiene el método status que nos permite establecer el código de HTTP que queremos mandar como respuesta
+* Si no establecemos ninguno por default es 200
+* Acepta un number como parámetro
+* Podemos encadenar otros llamados
 
-### Contenido estático
+**Ejemplo:**
+```js
+app.get('/', function(request, response) {
+  res.status(200).json({ nombre: 'Pepe', apellido: 'Martin'});
+});
 
+app.get('/error', function(request, response) {
+  res.status(500).send('Server error');
+});
+```
 
-### Usar templates
+* En este ejemplo vemos que podemos establecer el código de HTTP para el status de la respuesta
+* Para manejar el status 404 podemos crear el siguiente manejador de rutas
+
+**Ejemplo:**
+```js
+app.use(function (req, res, next) {
+  res.status(404).send("Sorry can't find that!")
+})
+```
+
+* De esta forma establecemos que Express intente manejar las rutas y en caso de no encontrar el documento significa que no existe
+* Por eso podemos establecer el código de status en 404 y mandar la respuesta que necesitemos con el mensaje de error
+* Por otro lado Express tiene una manera de manejar los errores
+* Para esto tenemos que agregar la siguiente configuración:
+
+**Ejemplo:**
+```js
+app.use(function (err, req, res, next) {
+  console.error(err.stack)
+  res.status(500).send('Something broke!')
+})
+```
+
+* Podemos ver que es bastante similar pero le agrega un par de parámetros más
+  * El primer parámetro es el error, de esta forma podemos saber que pasóß
+  * El segundo parámetro es el objeto `request` que es el mismo que vamos a utilizar dentro de las rutas
+  * El tercer parámetro es el objeto `response` que también es el mismo que vamos a utilizar dentro de las rutas
+  * Finalmente obtenemos un callback llamado next que nos permite seguir el flujo de filtros que aplica express
+* Con esta configuración si hay algún error lo vamos a poder atrapar y responderle al usuario correctamente
+* Es una buena práctica agregar estas dos configuración (404 y 500) a nuestro servidor de Express
+* Ambos callbacks que le pasamos al método `use` se llaman `middleware` y nos dan muchas opciones a la hora de configurar nuestro servidor
 
 ### Middleware
+* El concepto de middleware en Express no es más que un callback que se puede configurar para que se ejecute en algún momento
+* Estos middlaware nos dejan modificar el objeto `request` y `response`
+* Gracias a esta arquitectura podemos agregarle funcionalidad a nuestro servidor de express ya sea creando nuestros propios middlawares o usando algunos ya existentes
+* Express tiene una gran cantidad de middlawares que se pueden configurar
+* Para entender mejor este concepto vamos a ver un ejemplo
 
-### Crear un layout
+**Ejemplo:**
+```js
+const express = require('express');
+const app = express();
+
+const miMiddleware = function(req, res, next) {
+  console.log('paso por un middlaware')
+  next()
+}
+
+app.use(miMiddleware);
+
+app.use('/someroute', miMiddleware);
+
+app.get('/', miMiddleware);
+
+app.listen(3000);
+```
+
+* En este ejemplo creamos una nueva función que acepta 3 parámetros y la asignamos a la variable miMiddleware
+* En la firma de esta función encontramos los siguientes parámetros:
+  * req: es el objeto `request`
+  * res: es el objeto `response`
+  * next: es un callback que nos permite llamar al próximo middleware
+* Dentro de la función `miMiddleware` vemos que mostramos un mensaje en consola y luego llamamos a `next()`
+* De esta forma podemos crear como una cadena de filtros de middlewares que se llaman los unos a los otros en el orden que nosotros los fuimos configurando
+* Por medio del método `use` podemos configurar un middleware
+* Podemos establecer que se use para todos los llamados como en el ejemplo de `app.use(miMiddleware)`
+* También lo podemos configurar para que se aplique tan solo en una ruta como vemos en el ejemplo `app.get('/', miMiddleware)`
+* Y hasta lo podemos configurar para usarlo tan solo en una ruta y en un sólo verbo de HTTP como es el caso de `app.get('/', miMiddleware)`
+* También podemos configurar y utilizar un middleware desde un módulo de la siguiente forma
+
+**Ejemplo:**
+```js
+const express = require('express');
+const logger = require('morgan');
+const app = express();
+
+app.use(logger('dev'));
+```
+
+* En este ejemplo estamos configurando un módulo llamado [morgan](https://github.com/expressjs/morgan) como middleware de nuestro servidor
+* Este middleware logea los llamados que le hacen a nuestro servidor
+* Podemos ver en el sitio del módulo que es muy fácil de configurar y usar
+* De esta forma podemos buscar otros módulos que le agreguen funcionalidad a nuestro servidor
+* Para saber más sobre middleware pueden ingresar al [sitio de Express](https://expressjs.com/es/guide/writing-middleware.html)
+
+### Contenido estático
+* Express permite configurar carpetas para servir contenido estático sin tener que pasar por un controlador de ruta
+* Es decir que si entramos a una ruta que express no maneja se va a fijar si existe como contenido estático
+* Esta funcionalidad nos viene super bien para poder agregar archivos js para el cliente, css, imágenes o archivos html estáticos
+* Una buena forma de ir armando la arquitectura de nuestro servidor es servir todos los archivos desde una misma carpeta
+* Dado que es contenido estático y público podemos crear la carpeta `public` para este propósito
+
+* En cuanto tenemos la carpeta creada podemos configurar Express usando el método `static`
+
+**Ejemplo:**
+```js
+const express = require('express')
+const app = express()
+app.use(express.static('public'));
+```
+
+* En este ejemplo configuramos la carpeta public como contenedor de nuestros assets estáticos
+* Es decir que podemos llamar al server de la siguiente forma y obtener una respuesta automática manejada por Express
+* No tenemos que definir rutas específicas (get, post, etc) para el contenido estático ya que siempre es por get
+* Si dentro de la carpeta public tenemos carpetas, img, css, js para nuestros archivos podemos llamar al server de la siguiente manera:
+  * http://localhost:3000/img/logo.png
+  * http://localhost:3000/js/script.js
+  * http://localhost:3000/css/style.css
+  * http://localhost:3000/productos.html
+* Como podemos ver en los ejemplos nos crea por default un acceso al raiz del sitio
+* Podemos configurar cómo se acceden a los assets de la siguiente manera:
+
+**Ejemplo:**
+```js
+const express = require('express')
+const app = express()
+app.use('/assets', express.static('public'));
+```
+* En este ejemplo le decimos a express que utilice la url `/assets` para los archivos que estan dentro de la carpeta `public`
+* Dada la nueva configuración accedemos a los assets de la siguiente manera:
+  * http://localhost:3000/assets/img/logo.png
+  * http://localhost:3000/assets/js/script.js
+  * http://localhost:3000/assets/css/style.css
+  * http://localhost:3000/assets/productos.html
+* Como beneficio podemos utilizar cualquier carpeta para nuestro contenido estático
+* No le estamos dando información al usuario sobre nuestra arquitectura
+* Podemos cambiar la carpeta en cualquier momento con tan solo mantener la ruta donde montamos el contenido
+* También podemos configurar más de una carpeta
+* En caso de que Express no encuentre el asset requerido va a seguir buscando en las otras carpetas
+
+**Ejemplo:**
+```js
+app.use(express.static('public'));
+app.use(express.static('otracarpeta'));
+```
+
+* En este caso Express intenta primero buscar en la carpeta `public` y luego en la `otracarpeta`
+
+### Usar templates
+* Otro de los beneficios que tiene utilizar Express es que nos permite configurar un engine de template para crear nuestros documentos estáticos
+* Existen diferentes motores de template que podemos configurar
+* Vamos a utilizar y configurar [Handlebars](http://handlebarsjs.com/) como motor de template
+* Para saber más sobre este template engine pueden ingresar a su sitio
+* Dado qeu Handlebars es un poco complicado para configurar vamos a utilizar un módulo que nos facilita su uso
+* Instalamos [express-handlebars]()
+
+```bash
+npm install express-handlebars --save
+```
+
+* Luego de instalar el módulo de `express-handlebars` tenemos que crear la siguiente arquitectura de carpetas
+
+**Estructura de directorios:**
+```
+.
+├── index.js
+└── views
+    ├── home.handlebars
+    └── layouts
+        └── main.handlebars
+```
+
+* En la carpeta views vamos a poner todos nuestros templates
+* La carpeta layouts guarda los archivos que van a funcionar como marco general de nuestros templates
+
+**main.handlebars**
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Example App</title>
+</head>
+<body>
+    {{{body}}}
+</body>
+</html>
+```
+
+**home.handlebars**
+```html
+<h1>Home</h1>
+<p>Sitio generado utilizando templates de <a href="http://handlebarsjs.com/">Handlebars</a></p>
+```
+
+**index.js**
+```js
+const express = require('express')
+const exphbs  = require('express-handlebars')
+const app = express()
+
+app.engine('handlebars', exphbs({defaultLayout: 'main'}))
+app.set('view engine', 'handlebars')
+
+app.get('/', function (req, res) {
+    res.render('home')
+})
+
+app.listen(3000)
+```
+
+* En este ejemplo creamos 2 partes del template:
+  * main.handlebars: es el layout general de nuestro sitio. En este documento podemos poner todo lo que queremos que tengan en común todos los documentos. Es como el marco de nuestro sitio. Evita que tengamos que repetir toda la estructura en cada archivo
+  * home.handlebars: En este documento ponemos el contenido específico para una sección, en este ejemplo es el Home de nuestro sitio
+* Por otro lado tenemos una archivo **index.js** que contiene nuestro servidor Express
+* `app.engine('handlebars', exphbs({defaultLayout: 'main'}))` configura que usamos un layout con handlebars
+* `app.set('view engine', 'handlebars')` establece que queremos usar handlebars como motor de nuestros templates
+* Finalmente tenemos un manejador de ruta para la home de nuestro sitio `/` y utilizamos el método `render` de Express para renderizar el template
+* Es en este momento donde se compila el layout y el contenido del sitio para crear un archivo HTML que estamos mandando como respuesta en el método `render`
+* Podes leer más sobre el método [render en el sitio de Express](http://expressjs.com/es/api.html#app.render)
+
+### Armar un sitio 
+* Si hacemos todos los pasos hasta acá podemos tener configurado un sitio inicial
+* Vamos a crear algunas secciones para armar un sitio usando templates
+* Agregamos los nuevos archivos que vamos a necesitar
+
+```
+.
+├── index.js
+└── views
+    ├── home.handlebars
+    ├── contact.handlebars
+    ├── products.handlebars
+    └── layouts
+        └── main.handlebars
+```
+
+* Agregamos el contenido a cada archivo:
+
+**main.handlebars**
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Mi primer app con templates</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/script.js"></script>
+</head>
+<body>
+    <nav>
+      <ul>
+        <li>
+          <a href="/">
+            <img src="img/logo.svg" alt="apple">
+          </a>
+        </li>
+        <li>
+          <a href="/products">Products</a>
+        </li>
+        <li>
+          <a href="/contact">Contact</a>
+        </li>
+      </ul>
+    </nav>
+    <section>
+      {{{body}}}
+    </section>
+    <footer>
+      <div>Copyright © 2017 Apple Inc. All rights reserved.</div>
+    </footer>
+</body>
+</html>
+```
+
+**home.handlebars**
+```html
+<h1>Apple</h1>
+<p>Bienvenido al sitio de apple.com!!</p>
+```
+
+**products.handlebars**
+```html
+<h1>Apple - Products</h1>
+<p>Listado de productos</p>
+
+<h2>MacBook</h2>
+<ul>
+  <li>MacBook</li>
+  <li>MacBook Air</li>
+  <li>MacBook Pro</li>
+  <li>iMac</li>
+  <li>iMac Pro</li>
+  <li>Mac Pro</li>
+  <li>Mac mini</li>
+  <li>Accessories</li>
+  <li>High Sierra</li>
+</ul>
+
+<h2>iPad</h2>
+<ul>
+  <li>iPad Pro</li>
+  <li>iPad</li>
+  <li>iPad mini 4</li>
+  <li>iOS 11</li>
+  <li>Accessories</li>
+</ul>
+
+<h2>Iphone</h2>
+<ul>
+  <li>iPhone X</li>
+  <li>iPhone 8</li>
+  <li>iPhone 7</li>
+  <li>iPhone 6s</li>
+  <li>iPhone SE</li>
+  <li>iOS 11</li>
+  <li>Accessories</li>
+</ul>
+```
+
+**contact.handlebars**
+```html
+<h1>Apple - Contact</h1>
+<form action="#">
+  <div>
+    <label for="fname">First Name</label>
+    <input type="text" id="fname" name="firstname" placeholder="Your name..">
+  </div>
+  <div>
+    <label for="lname">Last Name</label>
+    <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+  </div>
+  <div>
+    <label for="country">Country</label>
+    <select id="country" name="country">
+      <option value="argentina">Argentina</option>
+      <option value="australia">Australia</option>
+      <option value="canada">Canada</option>
+      <option value="usa">USA</option>
+    </select>
+  </div>
+  <div>
+    <label for="subject">Subject</label>
+    <textarea id="subject" name="subject" placeholder=""></textarea>
+  </div>
+  <input type="submit" value="Submit">
+</form>
+```
+
+* En nuestro archivo index.js agregamos soporte para archivos estáticos
+* De esta forma podemos crear la carpeta public y agregar las carpetas img, css y js
+* También agregamos los manejadores de urls para `'/products'` y `'/contact'`
+* Cada vista renderiza su propio template
+* En todos los caso utilizamos el layout general
+
+**index.js**
+```js
+app.use(express.static('public'))
+
+app.get('/products', function (req, res) {
+  res.render('products')
+})
+
+app.get('/contact', function (req, res) {
+  res.render('contact')
+})
+```
+
+**public/js/script.js**
+```js
+window.onload=function() {
+  console.log('Cargamos el sitio usando templates!!!')
+}
+```
+
+* Finalmente agregamos el css
+
+**public/css/styles.css**
+```css
+body {
+  background: white;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+nav {
+  border-bottom: 1px solid black;
+  padding-left: 20px;
+  background: rgba(0,0,0,0.8);
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+nav ul li {
+  display: inline-block;
+}
+
+nav ul li:first-child {
+  margin-right: 10px;
+}
+
+nav ul li img {
+  vertical-align: middle;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: white;
+  display: block;
+}
+nav ul li a:hover{
+  text-decoration: underline;
+}
+
+section {
+  padding-left: 20px;
+}
+
+footer {
+  padding-left: 20px;
+  margin-top: 100px;
+  font-size: 12px;
+}
+
+form div {
+  margin-bottom: 10px;
+
+}
+
+form div label {
+  display: inline-block;
+  width: 100px;
+}
+
+form input {
+  width: 200px;
+  padding: 5px;
+}
+
+form select {
+  width: 215px;
+  height: 20px;
+}
+
+form textarea {
+  width: 200px;
+  padding: 5px;
+}
+
+form input[type=submit] {
+  width: 100px;
+  font-size: 12px;
+  line-height: 1.5;
+  font-weight: 400;
+  letter-spacing: 0em;
+  font-family: "SF Pro Text","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
+  min-width: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  background: linear-gradient(#42a1ec, #0070c9);
+  border-color: #07c;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  text-align: center;
+  white-space: nowrap;
+}
+```
+
+* Al unir todos estos templates, carpetas y archivos tenemos nuestro servidor listo
+* Usando layouts y templates es más fácil crear y mantener sitios
+
 [Ejercicio 14](../ejercicios/consignas/node/ej14.md)
 [Ejercicio 15](../ejercicios/consignas/node/ej15.md)
 [Ejercicio 16](../ejercicios/consignas/node/ej16.md)
 [Ejercicio 17](../ejercicios/consignas/node/ej17.md)
+
+### Renderizar valores
+* Si bien tener layouts y secciones de html está bueno todavía no lo hace dinámico
+* Podemos utilizar las expresiones de Handlebars para introducir contenido dentro de los templates
+* Para renderizar un valor desde ECMAScript dentro del template de handlebars usamos `{{valor}}`
+
+**pr
+oducts.handlebars**
+```html
+<div>{{nombre}}</div>
+```
+```js
+  res.render('products', { nombre: 'Mi Producto'})
+```
+
+* En este ejemplo vemos que utilizamos `{{nombredevariable}}` para imprimir un valor dentro del template
+* Desde Express podemos utilizar el método render para configuar el contenido y los valores
+* Como segundo parámetro render acepta un objeto donde las propiedades van a ser los nombres de variables que vamos a utilizar en el template
+* En este ejemplo el template renderiza el texto **Mi Producto** ya que le pedimos que remplace la variable `nombre` por el contenido de la propiedad `nombre` que le pasamos como segundo parámetro a `render`
+* En handlebars tenemos helpers que podemos utilizar dentro de nuestros templates:
+* Por ejemplo podemos utilizar `if` de la siguiente forma:
+
+```html
+<div>
+  {{#if user}}
+    <p>{{firstName}} {{lastName}}</p>
+  {{/if}}
+</div>
+```
+
+* También podemos iterar sobre colecciones de la siguiente manera:
+
+```html
+<ul>
+{{#each products}}
+  <li>{{this}}</li>
+{{/each}}
+</ul>
+```
+```js
+  res.render('products', { nombre: 'Mi Producto', products: ['tv', 'printer', 'ps4']})
+```
+
+* En este ejemplo iteramos la colección de productos y creamos una lista de forma dinámica
+* Existen varios helpers más y también podemos crear los nuestros si lo necesitamos
+* Este es un gran momento para ver la [documentación de Handlebars](http://handlebarsjs.com) para aprender más sobre este template engine
 
 ### Crear un form
 
