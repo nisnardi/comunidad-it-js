@@ -1233,9 +1233,10 @@ views
 * Podes leer más sobre partials en el [sitio de Handlebars](http://handlebarsjs.com/partials.html) y la documentación de [express-handlebars](https://github.com/ericf/express-handlebars)
 
 ## Helpers
+TBD
 
-### Crear rutas - POST
-
-### Obtener datos desde un form
+## Enviar datos por GET y POST
+TBD
 
 ## Crear una API rest
+TBD
