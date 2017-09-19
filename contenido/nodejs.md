@@ -16,7 +16,7 @@
 * Para saber más sobre NPM puden ingresar a [su sitio](https://www.npmjs.com)
 * Y como si fuera poco tiene la mejor mascota del universo!
 
-![Wombat](../assets/node/wombat.svg)
+![Wombat](../assets/node/wombat.png)
 
 ### Iniciar un proyecto
 * Para iniciar un proyecto en node vamos crear una carpeta con el nombre que quieras y dentro de ella correr el siguiente comando de NPM
