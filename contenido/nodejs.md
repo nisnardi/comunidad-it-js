@@ -1172,7 +1172,67 @@ oducts.handlebars**
 * Existen varios helpers más y también podemos crear los nuestros si lo necesitamos
 * Este es un gran momento para ver la [documentación de Handlebars](http://handlebarsjs.com) para aprender más sobre este template engine
 
-### Crear un form
+### Templates parciales
+* Handlebars también soporta partials que son pequeñas partes de código que puedo utilizar en distintos lados de mi proyecto
+* En nuestro caso vamos a crear un partial del navbar que tenemos en el layout
+* Necesitamos crear una carpeta con el nombre `partials` y dentro vamos a crear el archivo `navbar.handlebars`
+
+```
+views
+└── partials
+    └── navbar.handlebars
+```
+
+* Extraemos el siguiente código del documento `layout` y lo ponemos como contenido del partial `navbar`
+
+**navbar.handlebars**
+```html
+<nav>
+  <ul>
+    <li>
+      <a href="/">
+        <img src="img/logo.svg" alt="apple">
+      </a>
+    </li>
+    <li>
+      <a href="/products">Products</a>
+    </li>
+    <li>
+      <a href="/contact">Contact</a>
+    </li>
+  </ul>
+</nav>
+```
+
+**main.handlebars**
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Mi primer app con templates</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/script.js"></script>
+</head>
+<body>
+    {{> navbar}}
+    <section>
+      {{{body}}}
+    </section>
+    <footer>
+      <div>Copyright © 2017 Apple Inc. All rights reserved.</div>
+    </footer>
+</body>
+</html>
+```
+
+* En nuestro archivo de layout agregamos `{{> navbar}}` para agregar la botonera
+* Dado que el módulo de express-handlebars ya configura todo por nosotros podemos llamar al partial de esta manera
+* De esta forma podemos reutilizar esta parte del código y poner la botonera donde la necesitemos
+* Tener pequeños bloques de código en templates nos hace el trabajo más fácil
+* Podes leer más sobre partials en el [sitio de Handlebars](http://handlebarsjs.com/partials.html) y la documentación de [express-handlebars](https://github.com/ericf/express-handlebars)
+
+## Helpers
 
 ### Crear rutas - POST
 
