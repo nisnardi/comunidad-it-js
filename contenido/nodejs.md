@@ -886,8 +886,8 @@ app.listen(3000)
 <head>
   <meta charset="utf-8">
   <title>Mi primer app con templates</title>
-  <link rel="stylesheet" href="css/styles.css">
-  <script src="js/script.js"></script>
+  <link rel="stylesheet" href="/css/styles.css">
+  <script src="/js/script.js"></script>
 </head>
 <body>
     <nav>
@@ -1131,11 +1131,11 @@ form input[type=submit] {
 * Podemos utilizar las expresiones de Handlebars para introducir contenido dentro de los templates
 * Para renderizar un valor desde ECMAScript dentro del template de handlebars usamos `{{valor}}`
 
-**pr
-oducts.handlebars**
+**products.handlebars**
 ```html
 <div>{{nombre}}</div>
 ```
+**index.js**
 ```js
   res.render('products', { nombre: 'Mi Producto'})
 ```
@@ -1211,8 +1211,8 @@ views
 <head>
   <meta charset="utf-8">
   <title>Mi primer app con templates</title>
-  <link rel="stylesheet" href="css/styles.css">
-  <script src="js/script.js"></script>
+  <link rel="stylesheet" href="/css/styles.css">
+  <script src="/js/script.js"></script>
 </head>
 <body>
     {{> navbar}}
@@ -1232,11 +1232,339 @@ views
 * Tener pequeños bloques de código en templates nos hace el trabajo más fácil
 * Podes leer más sobre partials en el [sitio de Handlebars](http://handlebarsjs.com/partials.html) y la documentación de [express-handlebars](https://github.com/ericf/express-handlebars)
 
-## Helpers
-TBD
+## Creando una botonera de forma dinámica
+* Por medio del uso del helper `#if` y un poco de js y css vamos a mostrar el link seleccionado
+* Para esto primero vamos a modificar el manejador de rutas de la siguiente manera
 
-## Enviar datos por GET y POST
-TBD
+```js
+app.get('/products', function (req, res) {
+  res.render('products', { products: products, selected: { products: true }})
+})
+
+app.get('/contact', function (req, res) {
+  res.render('contact', { selected: { contact: true } })
+})
+```
+
+* En este ejemplo le pasamos al template un objecto que tiene un atributo `selected`
+* Este objeto tiene propiedades como `products` o `contact` y le asignamos un valor boolean
+* Con este cambio configuramos los datos que necesitamos pasarle al template
+* Es el momento de modificar el layout para pasale el valor seleccionado al template parcial llamado `navbar`
+
+```html
+{{> navbar this}}
+```
+
+* `this` en handlebar es el contexto del template, en este caso es el objeto que le pasamos desde el manejador de la vista
+* En `this.selected` tenemos los valores de las secciones seleccionados
+* Ahora sólo resta modificar el template parcial de la botonera y utilizar un condicional para agregar o no una clase para el link seleccionado
+
+```html
+  <li>
+    <a href="/products" class="{{#if selected.products}}selected{{/if}}">Products</a>
+  </li>
+  <li>
+      <a href="/contact" class="{{#if selected.contact}}selected{{/if}}">Contact</a>
+  </li>
+```
+
+* Dentro del parcial podemos acceder a la variable `selected` por su nombre
+* Con `selected.contact o selected.products` obtenemos los valores establecidos en el manejador de ruta
+* Al compilar el template evalúa si `selected.contact` o `selected.products` es verdadero para agregar la clase `selected`
+* De esta forma hacemos que nuestro partial sea dinámico
+* Existen otras formas de hacer esto, por ejemplo podemos utilizar el if para imprimir un elemento con la clase según la condicion
+
+```html
+  <li>
+    {{#if selected.products}}
+      <a href="/products" class="selected">Products</a>
+    {{else}}
+      <a href="/products">Products</a>
+    {{/if}}
+  </li>
+  <li>
+    {{#if selected.contact}}
+      <a href="/contact" class="selected">Contact</a>
+    {{else}}
+      <a href="/contact">Contact</a>
+    {{/if}}
+  </li>
+```
+
+* También se puede dar el caso donde no queremos que el usuario vuelva a hacer click en la sección seleccionada
+
+```html
+  <li>
+    {{#if selected.products}}
+      <span>Products</span>
+    {{else}}
+      <a href="/products">Products</span>
+    {{/if}}
+  </li>
+  <li>
+    {{#if selected.contact}}
+      <span>Contact</span>
+    {{else}}
+      <a href="/contact">Contact</a>
+    {{/if}}
+  </li>
+```
+
+## Obteniendo parametros
+* Express nos permite obtener los parámetros enviados en el request de diferentes maneras
+* Una de las formas más comúnes de pasar parámetros es utilizando la url
+* Por ejemplo si queremos ver la descripción de un producto podemos utilizar la url `/productos/:id`
+* Al establecer estar ruta estamos diciendo que si llamamos al server con una url tipo `/productos/10` obtenemos el parámetro id con el valor 10
+* Vamos a crear un a pagina de detalle según el elemento del array productos
+
+**index.js**
+```js
+// Tenemos configurado nuestro array de productos y secciones
+const products = [
+  { section: 'MacBook', items: ['MacBook', 'MacBook Air', 'MacBook Pro', 'iMac', 'iMac Pro', 'Mac Pro', 'Mac mini', 'Accessories', 'High Sierra'] },
+  { section: 'iPad', items: ['iPad Pro', 'iPad', 'iPad mini 4', 'iOS 11', 'Accessories',] },
+  { section: 'iPhone', items: ['iPhone X', 'iPhone 8', 'iPhone 7', 'iPhone 6s', 'iPhone SE', 'iOS 11', 'Accessories'] }
+]
+
+// Configuramos la url para que espere un id
+app.get('/products/:id', function (req, res) {
+  const id = req.params.id
+  
+  // Usamos el id como posición del elemento que estamos buscando
+  const product = products[id]
+  
+  // agregamos un dato product a nuestro llamado de render para que le llegue este valor al template
+  res.render('product', { product: product})
+})
+```
+
+* Ahora que tenemos configurado la ruta podemos crear el nuevo template para mostrar el detalle del producto
+* Creamos el archivo `product.handlebars` dentro de views
+
+```
+.
+├── index.js
+└── views
+    ├── home.handlebars
+    ├── contact.handlebars
+    ├── products.handlebars
+    ├── product.handlebars
+    └── layouts
+        └── main.handlebars
+```
+
+* Agregamos el siguiente código:
+
+**product.handlebars**
+```html
+<h1>{{product.section}}</h1>
+<ul>
+{{#each product.items}}
+  <li>{{this}}</li>
+{{/each}}
+</ul>
+<a href="/products">Ir a Products</a>
+```
+
+* En este template obtenemos el nombre de la sección seleccionada de producto
+* Mostramos todos los elementos de esa sección
+* Si navegamos a la ruta: `http://localhost:3000/products/0` ya podemos ver la sección del primer elemento de la colección de productos
+  * Podemos probar las otras url cambiando 0 por 1, 2 y ver que pasa si pasamos un parámetro donde no tenemos valores en el array
+* Modificamos el template de `products.handebars` para crear un link que nos lleve al detalle de la sección
+
+**products.handlebars**
+```html
+<h2>
+  <a href="/products/{{@index}}">{{this.section}}</a>
+</h2>
+```
+
+* Modificamos el título h2 para que tenga un hipervinculo
+* Dado que cada hipervinculo nos tiene que llevar a un id distinto utilizamos el helper `@index` de handlebars
+* Este helper nos retorna el índice del iterador, es decir que de esta forma obtenemos la posicion de cada elemento
+* Si vemos el listado de productos ahora vemos que tenemos una forma de seleccionar cada sección y ver su detalle
+
+## Submit de form por get - Express query
+* El objeto Request de Express tiene una propiedad llamada `query` que nos permite obtener los valores pasados por `querystring`
+* Si el querystring está vacío obtenemos un objeto sin propiedades
+
+```js
+// ruta: ?nombre=pepe&apellido=gutierrez
+
+app.get('/contacto', function(req, res){
+  const nombre = req.query.nombre
+  const apellido = req.query.apellido
+  res.send(`${nombre} ${apellido}`)
+});
+```
+
+* En este ejemplo vemos que utilizando la propiedad `query` del objeto Request podemos obtener los valores pasados por query string
+* Siguiendo nuestro ejemplo vamos a agregar esta funcionalidad a nuestro formulario de contacto
+* En index.js agregamos una nueva ruta para manejar el request por get a la ruta `/contact/submitporget`
+* Dado que el formulario manda los valores por GET vamos a utilizar `query` para obtenerlo
+* Nos tenemos que acordar que del lado del servidor tenemos que esperar los datos de la forma que nos los mandan
+
+**index.js**
+```js
+app.get('/contact/submitporget', function (req, res) {
+  console.log(req.query) // vemos en la consola del server el objeto query con todos los datos
+  
+  const firstname = req.query.firstname
+  const lastname = req.query.lastname
+  const country = req.query.country
+  const subject = req.query.subject
+
+  res.send(`
+    Nombre: ${firstname}
+    Apellido: ${lastname}
+    País: ${country}
+    Mensaje: ${subject}
+  `)
+})
+```
+
+**contact.handlebars**
+```html
+<form action="/contact/submitporget">
+```
+
+* Al configurar esta nueva ruta y cambiar el action del formulario podemos enviar datos del cliente al servidor usando el método GET
+
+## Submit de form por post - Express body y body-parse
+* Para poder acceder a los valores pasados por POST tenemos que instalar un nuevo módulo llamado `body-parser`
+* Este módulo funciona como middleware y agrega los valores pasados por POST a la propiedad `body` del objeto Request
+* Instalamos `body-parser` de la siguiente manera
+
+```bash
+npm install body-parser --save
+```
+
+* Luego de instalarlo tenemos que configurarlo en nuestro proyecto
+
+```js
+const bodyParser = require('body-parser')
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+```
+
+* Primero requerimos el módulo y luego configuramos el middleware utilizando el método `use` de Express
+* Agregamos `urlencoded` y `json` para poder configurar la forma en que body-parser parsea los datos
+* Al configurar este módulo obtenemos que en cada request que llegue por POST podamos acceder a los datos utilizando la propiedad `body` del objeto Request
+
+```js
+// ruta: /contacto
+
+app.get('/contacto', function(req, res){
+  const nombre = req.body.nombre
+  const apellido = req.body.apellido
+  res.send(`${nombre} ${apellido}`)
+});
+```
+
+* Dado que nos mandan los valores por POST podemos obtenerlos usando `body`
+* Vamos a configurar body-parser en nuestro proyecto y mandar los valores del formulario por POST
+* Primero vamos a cambiar el `action` y `method` de nuestro formulario
+
+**contact.handlebars**
+```html
+<form action="/contact/submitporpost" method="post">
+```
+
+* Ahora necesitamos manejar el request usando una nueva ruta por POST
+
+```js
+app.post('/contact/submitporpost', function (req, res) {
+  const firstname = req.body.firstname
+  const lastname = req.body.lastname
+  const country = req.body.country
+  const subject = req.body.subject
+  res.send(`
+    Nombre: ${firstname}
+    Apellido: ${lastname}
+    País: ${country}
+    Mensaje: ${subject}
+  `)
+})
+```
+
+* Al mandar los parámetros por GET los obteníamos usando la propiedad `query`
+* Ahora al mandar los valores por POST los obtenemos utilizando `body`
+* De esta forma vemos que los distintos métodos pasan los valores por distintos lados
+* Pueden leer más sobre [body-parser en su sitio](https://www.npmjs.com/package/body-parser)
 
 ## Crear una API rest
-TBD
+* Ahora que ya sabemos enviar y recibir datos utilizando GET y POST vamos a crear un llamado de API
+* Vamos a crear una ruta que al llamarla por GET retorne todos los productos que tenemos
+
+**index.js**
+```js
+const productosApi = [
+  'MacBook', 'MacBook Air', 'MacBook Pro', 'iMac', 'iMac Pro', 
+  'Mac Pro', 'Mac mini', 'Accessories', 'High Sierra',
+  'iPad Pro', 'iPad', 'iPad mini 4', 'iOS 11', 'Accessories',
+  'iPhone X', 'iPhone 8', 'iPhone 7', 'iPhone 6s', 'iPhone SE'
+]
+
+app.get('/api/products', function (req, res) {
+  const response = { products: productosApi}
+  res.json(response)
+})
+```
+
+* Creamos una nueva ruta que devuelve un listado de productos en formato JSON
+* Ahora vamos a llamar desde el cliente usando AJAX al servidor y pedirle que nos mande el listado de productos
+* Lo vamos a mostrar en pantalla recorriendo la respuesta y armando una lista
+* Primero creamos un contenedor en el HTML de la página de productos para poder insertar los nuevos valores que traemos con un llamado de AJAX
+
+**products.handlebars**
+```html
+<h2>Productos Por AJAX</h2>
+<div id="productos">
+  <img src="/img/loading.gif" alt="loading" width="30" />
+</div>
+```
+
+* En la carpeta `public/img/` tenemos que copiar la [siguiente imagen(loading.gif)](../assets/node/loading.gif)
+* Luego agregamos el siguiente código para hacer el llamado por AJAX, obtener la respuesta y crear de forma dinámica los items de productos
+
+**public/script.js**
+```js
+window.onload=function() {
+ const url = 'http://localhost:3000/api/products'
+ const xmlhttp = new XMLHttpRequest();
+ 
+ const ocultarLoader = () => {
+   const loading = document.querySelector('#productos img')
+   loading.style.display = 'none'
+ }
+
+ const crearListaDeProductos = (productos) => {
+   const lista = document.createElement('ol')
+   const contenedor = document.querySelector('#productos')
+   
+   productos.forEach((producto) => {
+     const elemento = document.createElement('li')
+     elemento.textContent = producto
+     lista.appendChild(elemento)
+   })
+
+   contenedor.appendChild(lista)
+ }
+
+ xmlhttp.onreadystatechange = function() {
+     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+       const respuesta = JSON.parse(xmlhttp.responseText);
+       ocultarLoader()
+       crearListaDeProductos(respuesta.products)
+     }
+ };
+ 
+ xmlhttp.open("GET", url, true);
+ xmlhttp.send();
+}
+```
+
+* De esta forma estamos vinculando archivos del cliente y el servidor
+* En la sección de base de datos agregamos los llamados por post para enviar datos
+* Para subir archivos se puede configurar otro módulo conocido llamado [multer](https://www.npmjs.com/package/multer)
+* También está bueno aprender [otros módulos que se llevan bien con Express](https://expressjs.com/en/resources/middleware.html)
