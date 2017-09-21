@@ -681,6 +681,9 @@ app.use(function (err, req, res, next) {
 * Es una buena práctica agregar estas dos configuración (404 y 500) a nuestro servidor de Express
 * Ambos callbacks que le pasamos al método `use` se llaman `middleware` y nos dan muchas opciones a la hora de configurar nuestro servidor
 
+#### Prácticas
+[Ejercicio 14](../ejercicios/consignas/node/ej14.md)
+
 ### Middleware
 * El concepto de middleware en Express no es más que un callback que se puede configurar para que se ejecute en algún momento
 * Estos middlaware nos dejan modificar el objeto `request` y `response`
@@ -735,6 +738,9 @@ app.use(logger('dev'));
 * De esta forma podemos buscar otros módulos que le agreguen funcionalidad a nuestro servidor
 * Para saber más sobre middleware pueden ingresar al [sitio de Express](https://expressjs.com/es/guide/writing-middleware.html)
 
+#### Prácticas
+[Ejercicio 15](../ejercicios/consignas/node/ej15.md)
+
 ### Contenido estático
 * Express permite configurar carpetas para servir contenido estático sin tener que pasar por un controlador de ruta
 * Es decir que si entramos a una ruta que express no maneja se va a fijar si existe como contenido estático
@@ -787,6 +793,9 @@ app.use(express.static('otracarpeta'));
 ```
 
 * En este caso Express intenta primero buscar en la carpeta `public` y luego en la `otracarpeta`
+
+#### Prácticas
+[Ejercicio 16](../ejercicios/consignas/node/ej16.md)
 
 ### Usar templates
 * Otro de los beneficios que tiene utilizar Express es que nos permite configurar un engine de template para crear nuestros documentos estáticos
@@ -1121,9 +1130,7 @@ form input[type=submit] {
 * Al unir todos estos templates, carpetas y archivos tenemos nuestro servidor listo
 * Usando layouts y templates es más fácil crear y mantener sitios
 
-[Ejercicio 14](../ejercicios/consignas/node/ej14.md)
-[Ejercicio 15](../ejercicios/consignas/node/ej15.md)
-[Ejercicio 16](../ejercicios/consignas/node/ej16.md)
+#### Prácticas
 [Ejercicio 17](../ejercicios/consignas/node/ej17.md)
 
 ### Renderizar valores
@@ -1164,6 +1171,7 @@ form input[type=submit] {
 {{/each}}
 </ul>
 ```
+
 ```js
   res.render('products', { nombre: 'Mi Producto', products: ['tv', 'printer', 'ps4']})
 ```
@@ -1171,6 +1179,9 @@ form input[type=submit] {
 * En este ejemplo iteramos la colección de productos y creamos una lista de forma dinámica
 * Existen varios helpers más y también podemos crear los nuestros si lo necesitamos
 * Este es un gran momento para ver la [documentación de Handlebars](http://handlebarsjs.com) para aprender más sobre este template engine
+
+#### Prácticas
+[Ejercicio 18](../ejercicios/consignas/node/ej18.md)
 
 ### Templates parciales
 * Handlebars también soporta partials que son pequeñas partes de código que puedo utilizar en distintos lados de mi proyecto
@@ -1232,6 +1243,9 @@ views
 * Tener pequeños bloques de código en templates nos hace el trabajo más fácil
 * Podes leer más sobre partials en el [sitio de Handlebars](http://handlebarsjs.com/partials.html) y la documentación de [express-handlebars](https://github.com/ericf/express-handlebars)
 
+#### Prácticas
+[Ejercicio 19](../ejercicios/consignas/node/ej19.md)
+
 ## Creando una botonera de forma dinámica
 * Por medio del uso del helper `#if` y un poco de js y css vamos a mostrar el link seleccionado
 * Para esto primero vamos a modificar el manejador de rutas de la siguiente manera
@@ -1266,6 +1280,13 @@ app.get('/contact', function (req, res) {
   <li>
       <a href="/contact" class="{{#if selected.contact}}selected{{/if}}">Contact</a>
   </li>
+```
+
+**styles**
+```css
+nav ul li a.selected {
+  color: gray;
+}
 ```
 
 * Dentro del parcial podemos acceder a la variable `selected` por su nombre
@@ -1309,6 +1330,9 @@ app.get('/contact', function (req, res) {
     {{/if}}
   </li>
 ```
+
+#### Prácticas
+[Ejercicio 20](../ejercicios/consignas/node/ej20.md)
 
 ## Obteniendo parametros
 * Express nos permite obtener los parámetros enviados en el request de diferentes maneras
@@ -1384,6 +1408,9 @@ app.get('/products/:id', function (req, res) {
 * Este helper nos retorna el índice del iterador, es decir que de esta forma obtenemos la posicion de cada elemento
 * Si vemos el listado de productos ahora vemos que tenemos una forma de seleccionar cada sección y ver su detalle
 
+#### Prácticas
+[Ejercicio 21](../ejercicios/consignas/node/ej21.md)
+
 ## Submit de form por get - Express query
 * El objeto Request de Express tiene una propiedad llamada `query` que nos permite obtener los valores pasados por `querystring`
 * Si el querystring está vacío obtenemos un objeto sin propiedades
@@ -1429,6 +1456,9 @@ app.get('/contact/submitporget', function (req, res) {
 ```
 
 * Al configurar esta nueva ruta y cambiar el action del formulario podemos enviar datos del cliente al servidor usando el método GET
+
+#### Prácticas
+[Ejercicio 22](../ejercicios/consignas/node/ej22.md)
 
 ## Submit de form por post - Express body y body-parse
 * Para poder acceder a los valores pasados por POST tenemos que instalar un nuevo módulo llamado `body-parser`
@@ -1491,6 +1521,12 @@ app.post('/contact/submitporpost', function (req, res) {
 * Ahora al mandar los valores por POST los obtenemos utilizando `body`
 * De esta forma vemos que los distintos métodos pasan los valores por distintos lados
 * Pueden leer más sobre [body-parser en su sitio](https://www.npmjs.com/package/body-parser)
+
+#### Prácticas
+[Ejercicio 23](../ejercicios/consignas/node/ej23.md)
+[Ejercicio 24](../ejercicios/consignas/node/ej24.md)
+[Ejercicio 25](../ejercicios/consignas/node/ej25.md)
+[Ejercicio 26](../ejercicios/consignas/node/ej26.md)
 
 ## Crear una API rest
 * Ahora que ya sabemos enviar y recibir datos utilizando GET y POST vamos a crear un llamado de API
@@ -1568,3 +1604,10 @@ window.onload=function() {
 * En la sección de base de datos agregamos los llamados por post para enviar datos
 * Para subir archivos se puede configurar otro módulo conocido llamado [multer](https://www.npmjs.com/package/multer)
 * También está bueno aprender [otros módulos que se llevan bien con Express](https://expressjs.com/en/resources/middleware.html)
+
+#### Prácticas
+[Ejercicio 27](../ejercicios/consignas/node/ej27.md)
+
+## Así termina Node.js!!
+
+![The End](../assets/node/theend.jpg)
