@@ -1,6 +1,6 @@
 # Ejercicio 6
 
-* Crear un archivo con el nombre ej6.md
+* Crear un archivo con el nombre ej6.js
 * Crear una arrow function con el nombre saludar
 * Esta función acepta 3 parámetros
   * El primer parámetro es el nombre de la persona que queremos saludar
