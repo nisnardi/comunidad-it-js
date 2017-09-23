@@ -1608,6 +1608,8 @@ window.onload=function() {
 #### Prácticas
 [Ejercicio 27](../ejercicios/consignas/node/ej27.md)
 
+* Si quieren aprender más sobre node puede mirar los [cursos de NodeSchool](https://nodeschool.io/)
+
 ## Así termina Node.js!!
 
 ![The End](../assets/node/theend.jpg)
