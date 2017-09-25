@@ -1170,7 +1170,7 @@ form.onsubmit = function(evento) {
   evento.preventDefault();
   const username = form.elements[0];
 
-  if (username.length === 0) {
+  if (username.value.length === 0) {
     console.log('Username incorrecto');
     return false;
   }
@@ -1218,12 +1218,12 @@ form.onsubmit = function(evento) {
   const username = form.elements[0];
   const mail = form.elements[1];
 
-  if (!validarUsername(username)) {
+  if (!validarUsername(username.value)) {
     console.log('Username incorrecto');
     return false;
   }
 
-  if (!validarMail(mail)) {
+  if (!validarMail(mail.value)) {
     console.log('Email incorrecto');
     return false;
   }
