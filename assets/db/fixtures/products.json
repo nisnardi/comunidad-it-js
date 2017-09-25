@@ -1,0 +1,21 @@
+{ "name": "MacBook", "price": 1299, "stock": 10, "picture": "macbook.jpeg", "categories": ["macbook", "notebook"]}
+{ "name": "Mac Pro", "price": 2999, "stock": 2, "picture": "macpro.png", "categories": ["computer"]}
+{ "name": "Mac mini", "price": 499, "stock": 20, "picture": "macmini.png", "categories": ["computer"]}
+{ "name": "MacBook Air", "price": 999, "stock": 5, "picture": "macbookair.jpeg", "categories": ["macbook", "notebook"]}
+{ "name": "MacBook Pro", "price": 2399, "stock": 3, "picture": "mbptouch.jpeg", "categories": ["macbook", "notebook"]}
+{ "name": "iMac", "price": 1799, "stock": 8, "picture": "imac.jpeg", "categories": ["computer"]}
+{ "name": "iPad Pro", "price": 649, "stock": 6, "picture": "ipadpro.png", "categories": ["ipad", "tablet"]}
+{ "name": "iPad", "price": 329, "stock": 30, "picture": "ipad.jpeg", "categories": ["ipad", "tablet"]}
+{ "name": "iPad mini 4", "price": 399, "stock": 14, "picture": "ipadmini.jpeg", "categories": ["ipad", "tablet"]}
+{ "name": "iPhone X", "price": 999, "stock": 200, "picture": "iphonex.png", "categories": ["iphone", "phone"]}
+{ "name": "iPhone 8", "price": 699, "stock": 200, "picture": "iphone8.png", "categories": ["iphone", "phone"]}
+{ "name": "iPhone 7", "price": 549, "stock": 50, "picture": "iphone7.png", "categories": ["iphone", "phone"]}
+{ "name": "iPhone 6s", "price": 449, "stock": 20, "picture": "iphone6s.png", "categories": ["iphone", "phone"]}
+{ "name": "iPhone SE", "price": 349, "stock": 30, "picture": "iphonese.png", "categories": ["iphone", "phone"]}
+{ "name": "Apple Watch Series 3", "price": 329, "stock": 10, "picture": "iwatch3.jpeg", "categories": ["watch"]}
+{ "name": "Apple Watch Nike+", "price": 329, "stock": 3, "picture": "iwatchnike.jpeg", "categories": ["watch"]}
+{ "name": "Apple Watch Hermès", "price": 1199, "stock": 2, "picture": "iwatchhermes.jpeg", "categories": ["watch"]}
+{ "name": "Apple Watch Edition", "price": 1299, "stock": 6, "picture": "iwatchceramic.jpeg", "categories": ["watch"]}
+{ "name": "Apple Watch Series 1", "price": 249, "stock": 20, "picture": "iwatch.jpeg", "categories": ["watch"]}
+{ "name": "Apple TV 4K", "price": 179, "stock": 300, "picture": "appletv4k.jpeg", "categories": ["tv"]}
+{ "name": "Apple TV", "price": 149, "stock": 100, "picture": "appletv.jpeg", "categories": ["tv"]}
