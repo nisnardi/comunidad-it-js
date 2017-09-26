@@ -334,7 +334,7 @@ apple
 ```
 
 #### Prácticas
-[Ejercicio 1](../ejercicios/consignas/node/ej1.md)
+[Ejercicio 1](../ejercicios/consignas/db/ej1.md)
 
 ### Mostrar el contenido de una colección
 * Usando el comando `find` buscamos un documento en la base de datos
@@ -373,7 +373,7 @@ apple
 * Podemos buscar por cualquier campo de un documento
 
 #### Prácticas
-[Ejercicio 2](../ejercicios/consignas/node/ej2.md)
+[Ejercicio 2](../ejercicios/consignas/db/ej2.md)
 
 ## Cursor
 * El resultado que retorna find es un tipo de objeto llamado `cursor`
@@ -412,7 +412,7 @@ false
 ```
 
 #### Prácticas
-[Ejercicio 3](../ejercicios/consignas/node/ej3.md)
+[Ejercicio 3](../ejercicios/consignas/db/ej3.md)
 
 ### Insertar Múltiples documentos
 * Para insertar un documento utilizamos el método `insertOne`
@@ -456,7 +456,7 @@ false
 * Obtenemos una respuesta similar a `insertOne` pero ahora MongoDB nos retorna todos los ObjectId que creo para cada uno de los documentos
 
 #### Prácticas
-[Ejercicio 4](../ejercicios/consignas/node/ej4.md)
+[Ejercicio 4](../ejercicios/consignas/db/ej4.md)
 
 ## Borrar una colección
 * Para borar una colección utilizamos el método `drop`
@@ -536,7 +536,7 @@ switched to db apple
 ```
 
 #### Prácticas
-[Ejercicio 5](../ejercicios/consignas/node/ej5.md)
+[Ejercicio 5](../ejercicios/consignas/db/ej5.md)
 
 ## Importar datos
 * Para importar datos de manera fácil utilizamos la herramienta `mongoimport`
@@ -600,7 +600,7 @@ db.products.find().pretty()
 * Vemos que se puede ver mejor el documento utilizando el método `pretty` para mostrar los resultados de una búsqueda
 
 #### Prácticas
-[Ejercicio 6](../ejercicios/consignas/node/ej6.md)
+[Ejercicio 6](../ejercicios/consignas/db/ej6.md)
 
 ## Más sobre el método find
 * Como vimos utilizamos el método `find` para buscar documentos en una colección
@@ -657,7 +657,7 @@ db.products.find().pretty()
 * Utilizamos `[]` en nuestro filtro sólo cuando queremos un resultado exacto para los elementos array
 
 #### Prácticas
-[Ejercicio 7](../ejercicios/consignas/node/ej7.md)
+[Ejercicio 7](../ejercicios/consignas/db/ej7.md)
 
 ## Proyección
 * Hasta ahora al utilizar el método `find` obtenemos todos los documentos buscados con todas sus propiedades
@@ -699,7 +699,7 @@ db.products.find().pretty()
 * Utilizamos entonces la proyección para limitar la cantidad de propiedades que mostramos para cada documento encontrado
 
 #### Prácticas
-[Ejercicio 8](../ejercicios/consignas/node/ej8.md)
+[Ejercicio 8](../ejercicios/consignas/db/ej8.md)
 
 ## Operadores
 * Los operadores nos permiten realizar búsquedas de forma más puntual
@@ -778,7 +778,7 @@ db.products.find().pretty()
 * En este ejemplo vemos que solo obtenemos productos que tengan alguno de los precios buscados
 
 #### Prácticas
-[Ejercicio 9](../ejercicios/consignas/node/ej9.md)
+[Ejercicio 9](../ejercicios/consignas/db/ej9.md)
 
 ### Operadores Lógicos
 * Para crear mejores filtros podemos utilizar los operadores lógicos `$or` y `$and`
@@ -812,7 +812,7 @@ db.products.find().pretty()
 * En este segundo caso obtenemos más resultados ya que muchos de los productos cumplen con la condición de stock mayor a 100 y precio menor a 400
 
 #### Prácticas
-[Ejercicio 10](../ejercicios/consignas/node/ej10.md)
+[Ejercicio 10](../ejercicios/consignas/db/ej10.md)
 
 ## Actualizar un documento
 * Para actualizar un documento utilizamos el método `updateOne`
@@ -845,7 +845,7 @@ db.products.find().pretty()
 ```
 
 #### Prácticas
-[Ejercicio 11](../ejercicios/consignas/node/ej11.md)
+[Ejercicio 11](../ejercicios/consignas/db/ej11.md)
 
 **Práctica adicional**
 * MongoDB tiene muchos operadores que nos permiten hacer updates de distintas formas y los podes ver en la [documentación de MongoDB](https://docs.mongodb.com/manual/reference/operator/update-field)
@@ -916,7 +916,7 @@ db.products.updateMany(
 ```
 
 #### Prácticas
-[Ejercicio 12](../ejercicios/consignas/node/ej12.md)
+[Ejercicio 12](../ejercicios/consignas/db/ej12.md)
 
 ## Borrar un documento
 * Para borrar un documeto utilizamos el método `deleteOne`
@@ -965,8 +965,8 @@ mongoimport --db apple --collection products --drop --file productos.json
 	* [deleteMany](https://docs.mongodb.com/manual/reference/method/db.collection.deleteMany/)
 
 #### Prácticas
-[Ejercicio 13](../ejercicios/consignas/node/ej13.md)
-[Ejercicio 14](../ejercicios/consignas/node/ej14.md)
+[Ejercicio 13](../ejercicios/consignas/db/ej13.md)
+[Ejercicio 14](../ejercicios/consignas/db/ej14.md)
 
 ## Ordenar y limitar resultados
 
@@ -1122,7 +1122,7 @@ Type "it" for more
 * Para saber más sobre el método `sort` podes entrar al [sitio de MongoDB](https://docs.mongodb.com/manual/reference/method/cursor.sort)
 
 #### Prácticas
-[Ejercicio 15](../ejercicios/consignas/node/ej15.md)
+[Ejercicio 15](../ejercicios/consignas/db/ej15.md)
 
 ### Limitar
 * Para limitar la cantidad de resultados que queremos ver utilizamos el método `limit`
@@ -1178,7 +1178,7 @@ Type "it" for more
 ```
 
 #### Prácticas
-[Ejercicio 16](../ejercicios/consignas/node/ej16.md)
+[Ejercicio 16](../ejercicios/consignas/db/ej16.md)
 
 ### Saltear resultados
 * Para saltear resultados y armar una especie de paginado podemos utilizar el método `skip`
@@ -1247,4 +1247,4 @@ Type "it" for more
 * De esta forma estamos creando un paginado de 2 documentos
 
 #### Prácticas
-[Ejercicio 17](../ejercicios/consignas/node/ej17.md)
+[Ejercicio 17](../ejercicios/consignas/db/ej17.md)
