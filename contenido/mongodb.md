@@ -967,3 +967,284 @@ mongoimport --db apple --collection products --drop --file productos.json
 #### Prácticas
 [Ejercicio 13](../ejercicios/consignas/node/ej13.md)
 [Ejercicio 14](../ejercicios/consignas/node/ej14.md)
+
+## Ordenar y limitar resultados
+
+### Ordenar
+* Para ordenar el resultado de una búsqueda utilizamos el método `sort`
+* Este método acepta un objeto con los criterios a ordenar
+* Si el criterio utilizado para una propiedad es `1` ordena de forma ascendente
+* Si el criterio utilizado para una propiedad es `-1` ordena de forma descendente
+* Vamos a ordenar los resultados por la propiedad `name`
+
+```bash
+> db.products.find({}, {name:1, _id: 0})
+{ "name" : "MacBook" }
+{ "name" : "Mac Pro" }
+{ "name" : "Mac mini" }
+{ "name" : "MacBook Air" }
+{ "name" : "MacBook Pro" }
+{ "name" : "iMac" }
+{ "name" : "iPad Pro" }
+{ "name" : "iPad" }
+{ "name" : "iPad mini 4" }
+{ "name" : "iPhone X" }
+{ "name" : "iPhone 8" }
+{ "name" : "iPhone 7" }
+{ "name" : "iPhone 6s" }
+{ "name" : "iPhone SE" }
+{ "name" : "Apple Watch Series 3" }
+{ "name" : "Apple Watch Nike+" }
+{ "name" : "Apple Watch Hermès" }
+{ "name" : "Apple Watch Edition" }
+{ "name" : "Apple Watch Series 1" }
+{ "name" : "Apple TV 4K" }
+{ "name" : "Apple TV" }
+```
+
+* En este ejemplo proyectamos el resultado para mostrar sólo la propiedad `name`
+* Al ejecutar esta query es posible que MongoDB nos diga que podemos utilizar `it` para ver más resultados
+* Este comando nos permite iterar el cursos por 20 documentos más
+```bash
+Type "it" for more
+> it
+```
+* Ahora que sabemos como se ve el resultado sin orden vamos a ordenarlo tanto de manera ascendente como descendente
+
+```bash
+> db.products.find({}, {name:1, _id: 0}).sort({name: 1})
+{ "name" : "Apple TV" }
+{ "name" : "Apple TV 4K" }
+{ "name" : "Apple Watch Edition" }
+{ "name" : "Apple Watch Hermès" }
+{ "name" : "Apple Watch Nike+" }
+{ "name" : "Apple Watch Series 1" }
+{ "name" : "Apple Watch Series 3" }
+{ "name" : "Mac Pro" }
+{ "name" : "Mac mini" }
+{ "name" : "MacBook" }
+{ "name" : "MacBook Air" }
+{ "name" : "MacBook Pro" }
+{ "name" : "iMac" }
+{ "name" : "iPad" }
+{ "name" : "iPad Pro" }
+{ "name" : "iPad mini 4" }
+{ "name" : "iPhone 6s" }
+{ "name" : "iPhone 7" }
+{ "name" : "iPhone 8" }
+{ "name" : "iPhone SE" }
+{ "name" : "iPhone X" }
+```
+
+```bash
+> db.products.find({}, {name:1, _id: 0}).sort({name: -1})
+{ "name" : "iPhone X" }
+{ "name" : "iPhone SE" }
+{ "name" : "iPhone 8" }
+{ "name" : "iPhone 7" }
+{ "name" : "iPhone 6s" }
+{ "name" : "iPad mini 4" }
+{ "name" : "iPad Pro" }
+{ "name" : "iPad" }
+{ "name" : "iMac" }
+{ "name" : "MacBook Pro" }
+{ "name" : "MacBook Air" }
+{ "name" : "MacBook" }
+{ "name" : "Mac mini" }
+{ "name" : "Mac Pro" }
+{ "name" : "Apple Watch Series 3" }
+{ "name" : "Apple Watch Series 1" }
+{ "name" : "Apple Watch Nike+" }
+{ "name" : "Apple Watch Hermès" }
+{ "name" : "Apple Watch Edition" }
+{ "name" : "Apple TV 4K" }
+{ "name" : "Apple TV" }
+```
+
+* De esta forma ordenamos los resultados según distintos criterios
+* Como podemos ver todavía MongoDB no está ordenando los resultados de la forma esperada
+* Esto pasa porque MongoDB ordena los valores de string por sus valores numéricos (como hace ECMAScript)
+* Para poder ordenar los valores de string utilizamos el cocepto de collation de la siguiente manera:
+* Vamos a establecer que esta búsqueda tiene collation en `en_US`
+* Agregamos el siguiente método a nuestra query: `collation({ locale: 'en_US', strength: 1 })`
+
+```bash
+> db.products.find({}, {name:1, _id: 0}).collation({ locale: 'en_US', strength: 1 }).sort({name: 1})
+{ "name" : "Apple TV" }
+{ "name" : "Apple TV 4K" }
+{ "name" : "Apple Watch Edition" }
+{ "name" : "Apple Watch Hermès" }
+{ "name" : "Apple Watch Nike+" }
+{ "name" : "Apple Watch Series 1" }
+{ "name" : "Apple Watch Series 3" }
+{ "name" : "iMac" }
+{ "name" : "iPad" }
+{ "name" : "iPad mini 4" }
+{ "name" : "iPad Pro" }
+{ "name" : "iPhone 6s" }
+{ "name" : "iPhone 7" }
+{ "name" : "iPhone 8" }
+{ "name" : "iPhone SE" }
+{ "name" : "iPhone X" }
+{ "name" : "Mac mini" }
+{ "name" : "Mac Pro" }
+{ "name" : "MacBook" }
+{ "name" : "MacBook Air" }
+{ "name" : "MacBook Pro" }
+```
+
+```bash
+> db.products.find({}, {name:1, _id: 0}).collation({ locale: 'en_US', strength: 1 }).sort({name: -1})
+{ "name" : "MacBook Pro" }
+{ "name" : "MacBook Air" }
+{ "name" : "MacBook" }
+{ "name" : "Mac Pro" }
+{ "name" : "Mac mini" }
+{ "name" : "iPhone X" }
+{ "name" : "iPhone SE" }
+{ "name" : "iPhone 8" }
+{ "name" : "iPhone 7" }
+{ "name" : "iPhone 6s" }
+{ "name" : "iPad Pro" }
+{ "name" : "iPad mini 4" }
+{ "name" : "iPad" }
+{ "name" : "iMac" }
+{ "name" : "Apple Watch Series 3" }
+{ "name" : "Apple Watch Series 1" }
+{ "name" : "Apple Watch Nike+" }
+{ "name" : "Apple Watch Hermès" }
+{ "name" : "Apple Watch Edition" }
+{ "name" : "Apple TV 4K" }
+{ "name" : "Apple TV" }
+```
+
+* Ahora si nuestros resultados están bien ordenados
+* Para saber más sobre el método `sort` podes entrar al [sitio de MongoDB](https://docs.mongodb.com/manual/reference/method/cursor.sort)
+
+#### Prácticas
+[Ejercicio 15](../ejercicios/consignas/node/ej15.md)
+
+### Limitar
+* Para limitar la cantidad de resultados que queremos ver utilizamos el método `limit`
+* El método limit acepta un valor numérico con la cantidad de documentos que queremos ver
+
+```bash
+> db.products.find({}, {name: 1, _id: 0})
+{ "name" : "MacBook" }
+{ "name" : "Mac Pro" }
+{ "name" : "Mac mini" }
+{ "name" : "MacBook Air" }
+{ "name" : "MacBook Pro" }
+{ "name" : "iMac" }
+{ "name" : "iPad Pro" }
+{ "name" : "iPad" }
+{ "name" : "iPad mini 4" }
+{ "name" : "iPhone X" }
+{ "name" : "iPhone 8" }
+{ "name" : "iPhone 7" }
+{ "name" : "iPhone 6s" }
+{ "name" : "iPhone SE" }
+{ "name" : "Apple Watch Series 3" }
+{ "name" : "Apple Watch Nike+" }
+{ "name" : "Apple Watch Hermès" }
+{ "name" : "Apple Watch Edition" }
+{ "name" : "Apple Watch Series 1" }
+{ "name" : "Apple TV 4K" }
+{ "name" : "Apple TV" }
+```
+
+* Vamos a limitar el resultado de nuestra búsqueda a tan solo 2 documentos
+
+```bash
+> db.products.find({}, {name: 1, _id: 0}).limit(2)
+{ "name" : "MacBook" }
+{ "name" : "Mac Pro" }
+```
+
+* Podemos combinar los métodos `sort` y `limit` para traernos la cantidad de elementos ordenados que necesitemos
+
+```bash
+> db.products.find({}, {name:1, _id: 0}).collation({ locale: 'en_US', strength: 1 }).sort({name: 1}).limit(1)
+{ "name" : "Apple TV" }
+```
+
+```bash
+> db.products.find({}, {name:1, _id: 0}).collation({ locale: 'en_US', strength: 1 }).sort({name: 1}).limit(5)
+{ "name" : "Apple TV" }
+{ "name" : "Apple TV 4K" }
+{ "name" : "Apple Watch Edition" }
+{ "name" : "Apple Watch Hermès" }
+{ "name" : "Apple Watch Nike+" }
+```
+
+#### Prácticas
+[Ejercicio 16](../ejercicios/consignas/node/ej16.md)
+
+### Saltear resultados
+* Para saltear resultados y armar una especie de paginado podemos utilizar el método `skip`
+* Este método acepta un valor numérico como parámetro
+* Por ejemplo podemos hacer una consulta de todos los documentos pero los vamos a pedir de 2 en 2
+* Dado que queremos obtener los primeros documentos también arrancamos el skip en 0, es decir que no vamos a saltear ningún documento
+
+```bash
+> db.products.find().skip(0).limit(2).pretty();
+{
+	"_id" : ObjectId("59c84ee65d070ae64857c7d1"),
+	"name" : "MacBook",
+	"price" : 1299,
+	"stock" : 10,
+	"picture" : "macbook.jpeg",
+	"categories" : [
+		"macbook",
+		"notebook"
+	],
+	"sortname" : "macbook"
+}
+{
+	"_id" : ObjectId("59c84ee65d070ae64857c7d2"),
+	"name" : "Mac Pro",
+	"price" : 2999,
+	"stock" : 2,
+	"picture" : "macpro.png",
+	"categories" : [
+		"computer"
+	],
+	"sortname" : "mac pro"
+}
+```
+
+* Como ya vimos los 2 primeros documentos podemos saltearlos de la siguiente forma
+* Volvemos a pedir los 2 próximos documentos
+
+```bash
+> db.products.find().skip(2).limit(2).pretty();
+{
+	"_id" : ObjectId("59c84ee65d070ae64857c7d3"),
+	"name" : "Mac mini",
+	"price" : 499,
+	"stock" : 20,
+	"picture" : "macmini.png",
+	"categories" : [
+		"computer"
+	],
+	"sortname" : "mac mini"
+}
+{
+	"_id" : ObjectId("59c84ee65d070ae64857c7d4"),
+	"name" : "MacBook Air",
+	"price" : 999,
+	"stock" : 5,
+	"picture" : "macbookair.jpeg",
+	"categories" : [
+		"macbook",
+		"notebook"
+	],
+	"sortname" : "macbook air"
+}
+```
+
+* Incrementando el valor de `skip` podemos ir salteando documentos
+* De esta forma estamos creando un paginado de 2 documentos
+
+#### Prácticas
+[Ejercicio 17](../ejercicios/consignas/node/ej17.md)
