@@ -372,7 +372,6 @@ app.post('/productos/borrar/:id', function(req, res) {
 {{else}}
   <div>No hay productos</div>
 {{/if}}
-
 ```
 
 * De esta forma ya podemos borrar productos desde nuestro sitio
