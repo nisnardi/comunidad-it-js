@@ -11,14 +11,14 @@
 npm install mongodb --save
 ```
 
-* Luego de instalar el módulo de MongoDB podemos requerirlo desde nuestro proyectos 
+* Luego de instalar el módulo de MongoDB podemos requerirlo desde nuestro proyecto
 
 ```js
 const MongoClient = require('mongodb').MongoClient
 ```
 
-* Para poder conectarnos necesitamos saber la url a donde está corriendo MongoDB
-* Si mongo está corriendo en el puerto por defecto y localmente utiliamos la siguiente url
+* Para poder conectarnos necesitamos saber la url donde está corriendo MongoDB
+* Si mongo está corriendo localmente y en el puerto por defecto, utiliamos la siguiente url
 
 ```js
 const url = 'mongodb://localhost:27017/apple';
@@ -56,6 +56,9 @@ MongoClient.connect(url, function(error, db) {
   db.close();
 });
 ```
+
+#### Prácticas
+[Ejercicio 1](../ejercicios/consignas/integracion/ej1.md)
 
 ## Buscar documentos
 * Al igual que en el cliente de MongoDB lo primero que tenemos que hacer es seleccionar la colección con la cual queremos interactuar
