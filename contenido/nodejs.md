@@ -903,7 +903,7 @@ app.listen(3000)
       <ul>
         <li>
           <a href="/">
-            <img src="img/logo.svg" alt="apple">
+            <img src="/img/logo.svg" alt="apple">
           </a>
         </li>
         <li>
@@ -1202,7 +1202,7 @@ views
   <ul>
     <li>
       <a href="/">
-        <img src="img/logo.svg" alt="apple">
+        <img src="/img/logo.svg" alt="apple">
       </a>
     </li>
     <li>

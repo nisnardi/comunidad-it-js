@@ -1,8 +1,12 @@
 
 ## Trabajo Integrador
 * En esta etapa del curso nos queda integrar todo lo que vimos hasta el momento
-* Vamos a necesitar tener la última versión del proyecto para poder seguir
-* Podes descargar el proyecto en el [siguiente link](/)
+* Vamos a necesitar tener la última versión del proyecto para poder seguir desde donde dejamos en Node.js
+* Podes descargar el proyecto en el [siguiente link (branch nodejs)](https://github.com/nisnardi/comunidad-it-proyecto-integrador-node-js/tree/nodejs)
+* También vamos a restablecer nuestra base de datos
+
+
+
 * Para poder conectar Node.js con MongoDB tenemos que utilizar un driver
 * Existe un módulo llamado `mongodb` que nos permite interactuar desde Node.js con MongoDB
 * Podes leer más sobre este módulo en su [documentación](http://mongodb.github.io/node-mongodb-native/2.2/tutorials/connect/)
@@ -18,23 +22,32 @@ const MongoClient = require('mongodb').MongoClient
 ```
 
 * Para poder conectarnos necesitamos saber la url donde está corriendo MongoDB
-* Si mongo está corriendo localmente y en el puerto por defecto, utiliamos la siguiente url
+* Si mongo está corriendo localmente y en el puerto por defecto
+* Creamos la variable dbName con el nombre de la base de datos que quermeos utilizar
+* Creamos la variable collectionName con el nombre de la colección que quermeos utilizar
 
 ```js
-const url = 'mongodb://localhost:27017/apple';
+const url = 'mongodb://localhost:27017';
+const dbName = 'apple';
+const collectionName = 'products';
 ```
 
 * Vemos que utiliza `mongodb` como protocolo
 * `localhost` establece que MongoDB está corriendo en nuestra máquina
 * `27017` es el puerto que estamos utilizando (por defecto)
 * `apple` es el nombre de la base de datos a la cual nos queremos conectar
+* Para poder utilizar MongoClient tenemos que crear una nueva instancia pasando la url donde nos queremos conectar
+
+```js
+const client = new MongoClient(url);
+```
+
 * Una buena práctica es tener todos estos datos de configuración en un módulo externo
 * El objeto `MongoClient` tiene un método `connect` que nos permite conectar con la base de datos
-* Este método acepta la `url` donde corre MongoDB como primer parámetro
 * También acepta un `callback` como segundo parámetro que se va a ejecutar cuando nos conectemos con MongoDB
 * Este callback va a recibir 2 parámetros:
   * error: siguiendo el standard de Node.js este callback puede recibir un error de conexión
-  * db: si todo está bien este callback recibe un objeto db que nos permite interactuar con la base de datos
+  * client: el cliente que nos permite communicarnos con MongoDB
 * Luego de utilizar una conexión debemos cerrarla para no dejarla abierta (a no ser que lo necesitemos)
 * Utilizamos el método `close` para cerrar la conexión con una base de datos
 * Vamos a unir todo lo que vimos hasta acá para conectarnos con MongoDB
@@ -43,29 +56,39 @@ const url = 'mongodb://localhost:27017/apple';
 // Obtenemos el objeto MongoClient
 const MongoClient = require('mongodb').MongoClient
 
-// Configuramos la url dónde está corriendo MongoDB
-const url = 'mongodb://localhost:27017/apple';
+// Configuramos la url dónde está corriendo MongoDB, base de datos y nombre de la colección
+const url = 'mongodb://localhost:27017';
+const dbName = 'apple';
+const collectionName = 'products';
+
+// Creamos una nueva instancia de MongoClient
+const client = new MongoClient(url);
 
 // Utilizamos el método connect para conectarnos a MongoDB
-MongoClient.connect(url, function(error, db) {
+client.connect(function (err, client) {
+  // Acá va todo el código para interactuar con MongoDB
   console.log("Conectados a MongoDB");
   
-  // Acá va todo el código para interactuar con MongoDB
-  
   // Luego de usar la conexión podemos cerrarla
-  db.close();
+  client.close();
 });
 ```
 
-#### Prácticas
-[Ejercicio 1](../ejercicios/consignas/integracion/ej1.md)
+## Elegir la base de datos
+* Utilizamos el cliente que creamos para establecer la base de datos que queremos elegir por medio del método `db`
+* El método `db` acepta un string como parámetro con el nombre de la base de datos que queremos elegir
+* Retorna un objecto que representa la base de datos
+
+```js
+  const db = client.db('apple');
+```
 
 ## Buscar documentos
 * Al igual que en el cliente de MongoDB lo primero que tenemos que hacer es seleccionar la colección con la cual queremos interactuar
 * Usamos el método `collection` para seleccionar la colección
 
 ```js
-  var coleccion = db.collection( 'products' );
+  const coleccion = db.collection( 'products' );
 ```
 
 * Ahora que ya tenemos una conexión y la colección podemos ejecutar una query en la base de datos
@@ -75,28 +98,41 @@ MongoClient.connect(url, function(error, db) {
 
 ```js
  coleccion.find().toArray(function(err, productos) {
-  console.log(productos)
+  console.log(productos);
 });
 ```
 
 * De esta forma podemos buscar documentos en la base de datos
 * Vamos a agregar esta funcionalidad a nuestro proyecto
-* Para poder mostrar los productos desde la base de datos tenemos que modificar la ruta/controller y el template de products
+* También borramos el array de products
 
 **index.js**
 ```js
+const express = require('express');
+const app = express();
+const exphbs = require('express-handlebars');
+const port = 3000;
+const bodyParser = require('body-parser');
 const MongoClient = require('mongodb').MongoClient
-const url = 'mongodb://localhost:27017/apple';
+const url = 'mongodb://localhost:27017';
+const dbName = 'apple';
+const collectionName = 'products';
+```
 
+* Para poder mostrar los productos desde la base de datos tenemos que modificar la ruta/controller y el template de products
+
+```js
 app.get('/products', function (req, res) {
-  MongoClient.connect(url, function(error, db) {
-    var coleccion = db.collection('products')
-    coleccion.find().toArray(function(err, productos) {
-      db.close()
-      res.render('products', { products: productos, selected: { products: true }})
-    })
-  })
-})
+  const client = new MongoClient(url);
+  client.connect(function (err, client) {
+    const db = client.db(dbName);
+    const coleccion = db.collection(collectionName);
+    coleccion.find().toArray(function (err, productos) {
+      client.close();
+      res.render('products', { products: productos, selected: { products: true } });
+    });
+  });
+});
 ```
 
 **products.handlebars**
@@ -122,6 +158,7 @@ app.get('/products', function (req, res) {
 **index.js**
 ```js
 app.get('/api/products', function (req, res) {
+  const client = new MongoClient(url);
   MongoClient.connect(url, function(error, db) {
     var coleccion = db.collection('products')
     coleccion.find().toArray(function(err, productos) {
@@ -232,8 +269,18 @@ app.get('/products/:name', function (req, res) {
 * En este template accedemos a cada una de las propiedades del objeto producto que son las mismas que tiene el documento JSON obtenido desde la base de datos
 * Recorremos las categorias utilizando el helper `each` ya que es un array
 * Podemos mostrar la imagen del producto combinando la ruta utilizando la propiedad `product.picture`
+* Para agregar las fotos de los productos creamos la siguiente estructura de carpetas:
+```
+.
+└── public
+    ├── img
+        └── products
+
+```
 * Podes descargar todas las fotos de productos desde el [siguiente link](../assets/db/products)
+* Copiar todas las fotos descargadas a la `carpeta public/img/products`
 * Si el usuario ingresa una url que no corresponde con un producto mostramos el mensaje de 'No hay productos`
+* Podes cambiar este mensaje por uno que te guste más!
 
 ## Crear un documento
 * Para crear un nuevo documento lo vamos a hacer utilizando un template y ruta nueva
@@ -244,7 +291,8 @@ app.get('/products/:name', function (req, res) {
 <a href="/productos/nuevo">+ Nuevo Producto</a>
 ```
 
-* Agregamos el template del formulario para crear un nuevo producto
+* Creamos el archivo productform.handlebars dentro de la carpeta views
+* Agregamos el siguiente formulario
 
 **productform.handlebars** 
 ```html
@@ -325,7 +373,7 @@ app.post('/productos/nuevo', function(req, res) {
 
 ## Borrar un documento
 * Para borrar un producto vamos a crear una nueva ruta
-* Utilizamos el método `deleteOne` para borrar un documento
+* Utilizamos el método `deleteOne` de coleccion para borrar un documento
 * Dado que queremos estar seguros de borrar el producto correcto vamos a utilizar la propiedad `_id`
 * Al ser `_id` un tipo de dato especial de MongoDB tenemos que requerir el módulo `ObjectID de mongodb`
 * Vamos a ejecutar esta ruta por `POST` y recibimos el parámetro `_id` por la url
@@ -350,7 +398,7 @@ app.post('/productos/borrar/:id', function(req, res) {
 * Ahora sólo nos queda agregar el botón para borrar un producto
 * Agregamos el siguiente formulario en el template de producto
 
-****
+**product.handlebars**
 ```html
 <a href="/products">Ir a Products</a>
 {{#if product}}
@@ -371,7 +419,6 @@ app.post('/productos/borrar/:id', function(req, res) {
     <input type="submit" value="Borrar">
   </form>
 
-
 {{else}}
   <div>No hay productos</div>
 {{/if}}
@@ -379,5 +426,139 @@ app.post('/productos/borrar/:id', function(req, res) {
 
 * De esta forma ya podemos borrar productos desde nuestro sitio
 
-## Actualizar un documento
-* Para actualizar un documento vamos a reutilizar el template del formulario de productos
+## Actualizar un producto
+* Para actualizar un producto vamos a crear primero el formulario
+* Creamos el siguiente archivo, copiamos y pegamos el siguiente código
+
+**updateproductform.handlebars**
+```html
+{{#if message}}
+<div class="success">{{message}}</div>
+{{/if}}
+<div>
+  <a href="/products">volver a productos</a>
+</div>
+<h1>Actualizar un producto</h1>
+<form action="/productos/update/{{product._id}}" method="post">
+  <div>
+    <label for="nombre">Nombre</label>
+    <input type="text" name="nombre" id="nombre" value="{{product.name}}" required>
+  </div>
+  <div>
+    <label for="precio">Precio</label>
+    <input type="text" name="precio" id="precio" value="{{product.price}}" required>
+  </div>
+  <div>
+    <label for="stock">Stock</label>
+    <input type="text" name="stock" id="stock" value="{{product.stock}}" required>
+  </div>
+  <div>
+    <label for="imagen">Imagen</label>
+    <input type="text" name="imagen" id="imagen" value="{{product.picture}}" required>
+  </div>
+  <input type="submit" value="Actualizar">
+</form>
+```
+
+* Este formulario es muy similar al de crear pero tiene algunas diferencias
+* Podríamos usar sólo un formulario para ambos casos pero creamos dos para que sea más fácil explicar
+* Este formulario utiliza una variable `product` donde tenemos todos los datos del producto seleccionado
+* La primer diferencia que encontramos es en el valor del atributo action del formulario
+* En este caso vamos a enviar los datos a la siguiente ruta `/productos/update/{{product._id}}`
+* Esta ruta se crea de forma dinámica según el valor _id del producto que recibe este formulario
+* También vamos a usar las propiedades `name, price, stock y picture` del producto como valores del atributo value de cada uno de los inputs
+* De esta forma asignamos inicialmente el valor que tiene cada uno de los atributos del producto
+* El botón de submit ahora dice Actualizar en lugar de Crear
+* Cuando el usuario submitea estos datos vamos a enviar a la ruta `/productos/update/{{product._id}}` todos los valores que tiene el formulario
+* Si el usuario modifica algún valor será enviado como parte de los datos del producto modificado
+* Los datos que no son modificados quedan igual que antes
+* Ya que tenemos el formulario armado podemos crear la ruta que lo va a renderizar
+
+**index.js**
+```js
+app.get('/productos/update/:id', function (req, res) {
+  const id = req.params.id;
+  const client = new MongoClient(url);
+
+  client.connect(function (err, client) {
+    const db = client.db(dbName);
+    const coleccion = db.collection(collectionName);
+    coleccion.findOne({ _id: ObjectId(id) }, function (err, producto) {
+      client.close();
+      res.render('updateproductform', { product: producto });
+    });
+  });
+});
+```
+
+* En esta ruta recibimos el parámetro :id que representa el id del producto a actualizar
+* Usamos de nuevo el método `findOne` del driver de mongo para buscar un producto por `_id`
+* Recibimos en el callback el producto encontrado y se lo pasamos al formulario
+* Luego express envía el resultado final de unir los datos del producto con los del formulario
+* Ya tenemos creados el template y la ruta por lo cual podemos agregar el link para modificar un producto
+
+****
+```html
+<form action="/productos/borrar/{{product._id}}" method="post">
+  <input type="submit" value="Borrar">
+  <a href="/productos/update/{{product._id}}">Actualizar producto</a>
+</form>
+```
+
+* Dado que vamos a utilizar el método GET en nuestra ruta para actualizar el producto podemos utilizar un link para direccionar al usuario al formulario
+* Probamos todo el código junto y vemos como al hacer click en `actualizar producto` dentro del detalle del producto nos llega a un formulario que tiene inicialmente todos los datos cargados
+* Modificamos algunos valores
+* Hacemos click en el botón `Actualizar`
+* En este momento se ejecuta el action del formulario y envía los datos por post a la ruta `/productos/update/{{product._id}}`
+* Para realmente poder actualizar los datos vamos a tener que crear la misma ruta pero ahora en versión POST en lugar de GET
+
+**index.js**
+```js
+app.post('/productos/update/:id', function (req, res) {
+  const id = req.params.id;
+  const producto = {
+    name: req.body.nombre,
+    price: parseInt(req.body.precio),
+    stock: parseInt(req.body.stock),
+    picture: req.body.imagen
+  }
+
+  const client = new MongoClient(url);
+
+  client.connect(function (err, client) {
+    const db = client.db(dbName);
+    const coleccion = db.collection(collectionName);
+    coleccion.updateOne({ _id: ObjectId(id) }, { $set: producto }, function (err, respuesta) {
+      coleccion.findOne({ _id: ObjectId(id) }, function (err, producto) {
+        client.close();
+        res.render('updateproductform', { message: 'Producto actualizado!', product: producto });
+      });
+    });
+  });
+})
+```
+
+* Al ejecutar el formulario enviamos por POST los datos del producto actualizado
+* Utilizando los parámetros del request vamos a obtener el id del producto que vamos a actualizar
+* Luego tomamos los valores enviados desde el formulario y creamos un objeto producto
+* Asignamos a cada propiedad el valor correspondiente, por ejemeplo `name: req.body.nombre`
+* Luego nos conectamos a mongo
+* Utilizamos el método `updateOne` para actulizar un producto
+* Este método acepta como primer valor un objecto con el cual vamos a buscar un documento utilizando las propiedades del mismo
+* Dado que tenemos el _id del producto lo utilizamos como criterio de búsqueda
+* El segundo parámetro es un objeto con todos los valores que queremos actualizar
+* En nuestro ejemplo vamos a actualizar todos los campos ya que no estamos haciendo diferencia entre los valores que fueron actualizados y los que no
+* Si bien ya actualizamos nuestro producto a nivel base de datos todavía nos queda renderizar algo para mostrarle al usuario
+* Para poder recrear el formulario actualizado vamos a buscar el producto nuevamente
+* Utilizamos el método `findOne` para buscar un producto y utilizamos el _id
+* Ahora sólo queda unir el formulario con los datos del producto y un mensaje de éxito
+* Pasamos los valores message y product los cuales serán remplazados en la vista updateproductform
+
+```js
+res.render('updateproductform', { message: 'Producto actualizado!', product: producto });
+```
+
+* Enviamos la respuesta al cliente y terminamos la operación
+* De esta forma logramos crear, obtener, modificar y borrar un producto
+* Podemos utilizar esta técnica para crear, obtener, modificar y borrar cualquier otro tipo de dato como podría ser por ejemplo un usuario
+* Cada uno de estos temas abre la posibilidad de aprender muchas cosas más y espero que lo sigas haciendo
